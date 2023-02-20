@@ -1,6 +1,4 @@
-import styled from "styled-components";
-import GlobalStyle from "./GlobalStyle";
-import { FlexCenter } from "./shared/css";
+import GlobalStyle from "./styles/GlobalStyle";
 import Router from "./shared/Router";
 
 const App = () => {

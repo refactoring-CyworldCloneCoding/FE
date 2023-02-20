@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { FlexCenter } from "../shared/css";
+import { FlexCenter } from "../styles/css";
 
 const NotFound = () => {
   return (
     <Stdiv>
-      <StNot>4🐻4</StNot>
+      <StNot>4😥4</StNot>
       <p>이 페이지는 없는 페이지 입니다.</p>
     </Stdiv>
   );
