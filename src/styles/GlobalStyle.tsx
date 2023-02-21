@@ -15,6 +15,20 @@ const GlobalStyle = createGlobalStyle`
   body {
   font-family: 'Pretendard-Regular'
   }
+
+  * {
+    box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif;
+    resize: none;
+    /* 인풋 포커스 해제 */
+    &:focus {
+    outline: none;
+    }
+  }
+
+  button {
+    cursor: pointer;
+  }
   
   `;
 
