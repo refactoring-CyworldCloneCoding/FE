@@ -1,16 +1,23 @@
 import styled from "styled-components";
 import Login from "../components/main/Login";
+import LoginUser from "../components/main/LoginUser";
 import MainBtn from "../components/main/MainBtn";
 import mainLogo from "../shared/images/mainLogo.png";
-import { FlexCenter } from "../styles/css";
+import { MainBg } from "../styles/css";
 
 const Main = () => {
   return (
     <StMain>
       <StLogo src={mainLogo} alt="싸이월드메인로고" />
       <StBox>
-        <Login />
-        <MainBtn />
+        {true ? (
+          <LoginUser />
+        ) : (
+          <>
+            <Login />
+            <MainBtn />
+          </>
+        )}
       </StBox>
     </StMain>
   );
@@ -19,11 +26,7 @@ const Main = () => {
 export default Main;
 
 const StMain = styled.div`
-  width: 100%;
-  height: 100vh;
-  ${FlexCenter}
-  flex-direction: column;
-  background-color: #eee;
+  ${MainBg}
 `;
 
 const StLogo = styled.img`

@@ -6,3 +6,11 @@ export const FlexCenter = css`
   justify-content: center;
   align-items: center;
 `;
+
+export const MainBg = css`
+  width: 100%;
+  height: 100vh;
+  ${FlexCenter}
+  flex-direction: column;
+  background-color: #eee;
+`;

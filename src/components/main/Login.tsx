@@ -36,7 +36,6 @@ const StText = styled.p`
 `;
 
 const StLoginBtn = styled.button`
-  font-size: 1rem;
   width: 8.5rem;
   height: 4.5rem;
   background-color: #fe6f03;
