@@ -13,7 +13,7 @@ const Profile = () => {
           TODAY is ... <span>행복🥰</span>
         </StEmotion>
         <StProfileImage src="http://res.heraldm.com/content/image/2021/07/16/20210716000671_0.jpg" />
-        <StIntro>난... ㄱ ㅏ끔... 눈물을 흘린 ㄷ ㅏ...</StIntro>
+        <StIntro>난...ㄱ ㅏ끔...눈물을 흘린ㄷ ㅏ...</StIntro>
         <StHistory>히스토리</StHistory>
         <StPado>파도타기</StPado>
         <StUserinfo>

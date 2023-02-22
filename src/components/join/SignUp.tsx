@@ -8,7 +8,7 @@ const SignUp = () => {
       <form>
         <StLabel>이메일</StLabel>
         <div>
-          <StInput type="text" width="6rem" />
+          <StInput type="text" width="7.5rem" />
           <span>@cyworld.com</span>
           <StCheck>중복검사</StCheck>
         </div>
@@ -63,7 +63,7 @@ const StText = styled.p`
 `;
 
 const StSelect = styled.select`
-  width: 3rem;
+  width: 4rem;
   height: 2rem;
   margin: 0.5rem 0;
 `;

@@ -5,7 +5,12 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
 
+  body {
+    font-family: Galmuri11, sans-serif;
+  }
+
   * {
+    font-family: Galmuri11, sans-serif;
     font-size: 1rem;
     box-sizing: border-box;
     resize: none;

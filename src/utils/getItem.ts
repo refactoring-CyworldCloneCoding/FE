@@ -5,6 +5,13 @@ import avt_m from "../shared/images/avt_m.png";
 import miniroom1 from "../shared/images/miniroom1.gif";
 import miniroom2 from "../shared/images/miniroom2.gif";
 
+import one from "../shared/images/bookMinimi/one.gif";
+import two from "../shared/images/bookMinimi/two.gif";
+import three from "../shared/images/bookMinimi/three.gif";
+import four from "../shared/images/bookMinimi/four.gif";
+import five from "../shared/images/bookMinimi/five.gif";
+import six from "../shared/images/bookMinimi/six.gif";
+
 export type Tgender = "남자" | "여자";
 
 export const minimi = {
@@ -41,4 +48,19 @@ export const getMiniroom = (gender: Tgender) => {
 
 export const getgenderCon = (gender: Tgender) => {
   return genderCon[gender];
+};
+
+export const booksCon: IRandom = {
+  0: one,
+  1: two,
+  2: three,
+  3: four,
+  4: five,
+  5: six,
+};
+
+export const radomNum = Math.floor(Math.random() * 6);
+
+export const getBookMinimi = () => {
+  return booksCon[radomNum];
 };

@@ -8,3 +8,6 @@ type childrenProps = {
 interface IComponent {
   [key: string]: JSX.Element;
 }
+interface IRandom {
+  [key: string]: string;
+}

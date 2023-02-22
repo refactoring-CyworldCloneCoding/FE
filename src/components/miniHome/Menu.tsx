@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Diary from "./Diary";
-import GuestBook from "./GuestBook";
-import Room from "./Room";
+import GuestBook from "./Guest/GuestBook";
+import Room from "./room/Room";
 
 const components: IComponent = {
   홈: <Room />,
