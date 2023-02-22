@@ -65,3 +65,9 @@ const StText = styled.div`
   width: 75%;
   padding: 1rem;
 `;
+
+const StEditText = styled.textarea`
+  width: 75%;
+  padding: 1rem;
+  border: none;
+`;
