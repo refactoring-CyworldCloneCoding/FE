@@ -3,7 +3,7 @@ import minimi_m from "../shared/images/minimi_m.png";
 import avt_f from "../shared/images/avt_f.png";
 import avt_m from "../shared/images/avt_m.png";
 import miniroom1 from "../shared/images/miniroom1.gif";
-import miniroom2 from "../shared/images/miniroom1.gif";
+import miniroom2 from "../shared/images/miniroom2.gif";
 
 export type Tgender = "남자" | "여자";
 
@@ -13,8 +13,8 @@ export const minimi = {
 };
 
 export const avt = {
-  남자: avt_f,
-  여자: avt_m,
+  남자: avt_m,
+  여자: avt_f,
 };
 
 export const miniroom = {

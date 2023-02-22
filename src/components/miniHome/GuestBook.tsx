@@ -1,5 +1,14 @@
+import styled from "styled-components";
+import { FlexCenter } from "../../styles/css";
+
 const GuestBook = () => {
-  return <div>방명록</div>;
+  return <StGuestBox></StGuestBox>;
 };
 
 export default GuestBook;
+
+const StGuestBox = styled.div`
+  padding: 1rem;
+  ${FlexCenter}
+  flex-direction: column;
+`;
