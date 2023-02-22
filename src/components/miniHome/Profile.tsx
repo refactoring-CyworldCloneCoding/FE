@@ -29,7 +29,7 @@ export default Profile;
 
 //프로필 전체 박스
 const StPageBox = styled.div`
-  width: 100%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   padding: 1rem;

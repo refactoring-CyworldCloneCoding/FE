@@ -39,4 +39,5 @@ const StPage = styled.div`
   border-radius: 0.5rem;
   width: 56rem;
   height: 36rem;
+  display: flex;
 `;
