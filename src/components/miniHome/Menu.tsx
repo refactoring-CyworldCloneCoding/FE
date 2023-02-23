@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Diary from "./Diary";
+import Diary from "./Diary/Diary";
 import GuestBook from "./Guest/GuestBook";
 import Room from "./room/Room";
 

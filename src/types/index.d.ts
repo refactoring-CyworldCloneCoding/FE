@@ -11,3 +11,7 @@ interface IComponent {
 interface IRandom {
   [key: string]: string;
 }
+
+interface Istate {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
