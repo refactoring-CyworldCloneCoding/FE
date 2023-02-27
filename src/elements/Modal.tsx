@@ -4,12 +4,7 @@ import styled from "styled-components";
 import { FlexCenter } from "../styles/css";
 
 const Modal = ({ setOpen }: Istate) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm();
+  const { register, handleSubmit, watch } = useForm();
 
   const onSubmit = () => {};
 
