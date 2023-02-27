@@ -18,7 +18,7 @@ const Menu = () => {
   return (
     <>
       <StFlex>
-        <StTitle>김싸이님의 미니홈피 입니다.</StTitle>
+        <StTitle>싸이월드님의 미니홈피 입니다.</StTitle>
         <StMenuBox>{components[menu]}</StMenuBox>
       </StFlex>
       <StBtnBox>
