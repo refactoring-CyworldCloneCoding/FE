@@ -1,4 +1,5 @@
-name: S3 deploy with cloud front
+name: depoly
+
 on:
   push:
     branches:
