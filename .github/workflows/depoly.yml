@@ -3,7 +3,7 @@ name: deploy # Workflow 이름
 on: # Event 감지
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   deploy:
@@ -20,7 +20,7 @@ jobs:
         run: yarn
 
       - name: Build
-        run: yarn build:dev
+        run: yarn build:main
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
