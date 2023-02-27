@@ -1,7 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { getBookMinimi } from "../../../utils/getItem";
 
 const GuestComment = () => {
+  const [isEdit, setIsEdit] = useState(false);
+
   return (
     <>
       <StTitle>
@@ -11,13 +14,19 @@ const GuestComment = () => {
           (2020.20.20 19:20)
         </p>
         <div>
-          <button>수정</button>
+          <button onClick={() => setIsEdit((x) => !x)}>
+            {isEdit ? "완료" : "수정"}
+          </button>
           <button>삭제</button>
         </div>
       </StTitle>
       <StBookDiv>
         <StMinimi src={getBookMinimi()} alt="미니미" />
-        <StText>안녕하세요. 150자 제한, src 넘버도 넘기기</StText>
+        {isEdit ? (
+          <StEditText />
+        ) : (
+          <StText>안녕하세요. 150자 제한, src 넘버도 넘기기</StText>
+        )}
       </StBookDiv>
     </>
   );
@@ -69,5 +78,6 @@ const StText = styled.div`
 const StEditText = styled.textarea`
   width: 75%;
   padding: 1rem;
-  border: none;
+  border: 0.1rem solid #eee;
+  margin: 0.4rem 0;
 `;

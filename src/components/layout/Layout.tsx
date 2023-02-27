@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import pattern from "../../shared/images/pattern.png";
-import { FlexCenter } from "../../styles/css";
 
 function Layout({ children }: childrenProps) {
   return <StBase>{children}</StBase>;
