@@ -10,7 +10,7 @@ const Main = () => {
     <StMain>
       <StLogo src={mainLogo} alt="싸이월드메인로고" />
       <StBox>
-        {true ? (
+        {false ? (
           <LoginUser />
         ) : (
           <>

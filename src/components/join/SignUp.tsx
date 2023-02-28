@@ -1,43 +1,128 @@
+import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { instance } from "../../apis/axios";
+import {
+  birthVaild,
+  emailValid,
+  genderVaild,
+  nameVaild,
+  passwordValid,
+  rePasswordValid,
+} from "../../utils/vaild";
 
 const SignUp = () => {
   const nav = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({ mode: "onChange" });
+
+  // 비밀번호 입력값 추적
+  const password = watch("password");
+
+  const emailDup = async () => {
+    const email = watch("email");
+    if (!email) {
+      alert("이메일 아이디를 입력해주세요.");
+    } else {
+      await instance
+        .post("`${SERVER}/users/emailcheck", { email: email })
+        .then((a) => {
+          console.log(a);
+        })
+        .catch((b) => {
+          console.log(b);
+        });
+    }
+  };
+
+  const onSignUp = (data: FieldValues) => {};
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSignUp)}>
         <StLabel>이메일</StLabel>
         <div>
-          <StInput type="text" width="7.5rem" />
+          <StInput
+            type="text"
+            placeholder="아이디"
+            width="7.5rem"
+            {...register("email", emailValid())}
+          />
           <span>@cyworld.com</span>
-          <StCheck>중복검사</StCheck>
+          <StCheck onClick={emailDup} type="button">
+            중복검사
+          </StCheck>
         </div>
-        <StText>4~10자, 영문을 포함해야하고 숫자 사용 가능</StText>
+        {errors?.email ? (
+          <StErr>{`${errors?.email.message}`}</StErr>
+        ) : (
+          <StText>4~10자, 영문을 포함해야하고 숫자 사용 가능</StText>
+        )}
         <StLabel>비밀번호</StLabel>
-        <StInput type="password" />
-        <StText>
-          8~20자, 영문을 포함하고, 숫자, 특수문자(!@#$%^&*)사용 가능
-        </StText>
+        <StInput
+          type="password"
+          placeholder="비밀번호"
+          {...register("password", passwordValid())}
+        />
+        {errors?.password ? (
+          <StErr>{`${errors?.password.message}`}</StErr>
+        ) : (
+          <StText>
+            8~20자, 영문을 포함하고, 숫자, 특수문자(!@#$%^&*)사용 가능
+          </StText>
+        )}
         <StLabel>비밀번호 재확인</StLabel>
-        <StInput type="password" />
-        <StText>비밀번호 재입력</StText>
+        <StInput
+          type="password"
+          placeholder="비밀번호 재입력"
+          {...register("confirm", rePasswordValid(password))}
+        />
+        {errors?.confirm ? (
+          <StErr>{`${errors?.confirm.message}`}</StErr>
+        ) : (
+          <StText>비밀번호 재입력</StText>
+        )}
         <StLabel>성별 / 이름 / 생년월일</StLabel>
         <div>
-          <StSelect>
+          <StSelect {...register("gender", genderVaild())}>
             <option value="">성별</option>
             <option value="남자">남자</option>
             <option value="여자">여자</option>
           </StSelect>
-          <StInput width="6rem" style={{ margin: "0 0.5rem" }} />
           <StInput
-            defaultValue="1900-01-01"
+            type="text"
+            placeholder="이름"
+            width="6rem"
+            style={{ margin: "0 0.5rem" }}
+            {...register("name", nameVaild())}
+          />
+          <StInput
             type="date"
-            min="1900-01-01"
-            max="2004-12-31"
+            min="0000-01-01"
+            max="2023-12-31"
+            {...register("birth", birthVaild())}
           />
         </div>
-        <StText>이름은 한글 또는 영문 1-5자</StText>
-        <StButton>가입하기</StButton>
+        {errors?.name ? (
+          <StErr>{`${errors?.name.message}`}</StErr>
+        ) : (
+          <StText>이름은 한글 또는 영문 1-5자</StText>
+        )}
+        {errors?.gender ? (
+          <StErr>{`${errors?.gender.message}`}</StErr>
+        ) : (
+          <StText>성별 선택 필수</StText>
+        )}
+        {errors?.birth ? (
+          <StErr>{`${errors?.birth.message}`}</StErr>
+        ) : (
+          <StText>1900-2004년생까지만 가능</StText>
+        )}
+        <StButton type="submit">가입하기</StButton>
       </form>
       <StBackButton onClick={() => nav("/")}>돌아가기</StBackButton>
     </>
@@ -62,6 +147,12 @@ const StText = styled.p`
   margin-bottom: 1rem;
 `;
 
+const StErr = styled.p`
+  font-size: 0.8rem;
+  color: red;
+  margin-bottom: 1rem;
+`;
+
 const StSelect = styled.select`
   width: 4rem;
   height: 2rem;
@@ -78,7 +169,6 @@ const StButton = styled.button`
   border: 0;
   border-radius: 0.5rem;
   background-color: #fe6f03;
-  margin-top: 0.5rem;
   color: white;
 `;
 
