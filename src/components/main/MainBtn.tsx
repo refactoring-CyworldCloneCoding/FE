@@ -1,20 +1,20 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const MainBtn = () => {
   const nav = useNavigate();
-  const btns = [
-    { name: "회원가입", path: "/join" },
-    { name: "랜덤 미니홈피 구경하기", path: "/" },
-  ];
+
+  const onRandom = () => {
+    axios.get(`/users/surfing`).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <>
-      {btns.map((btn) => (
-        <StBtn key={btn.name} onClick={() => nav(btn.path)}>
-          {btn.name}
-        </StBtn>
-      ))}
+      <StBtn onClick={() => nav("/join")}>회원가입</StBtn>
+      <StBtn onClick={onRandom}>랜덤 미니홈피 구경하기</StBtn>
     </>
   );
 };

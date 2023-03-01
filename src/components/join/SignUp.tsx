@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -20,8 +21,11 @@ const SignUp = () => {
     watch,
   } = useForm({ mode: "onChange" });
 
-  // 비밀번호 입력값 추적
+  /**비밀번호 입력값 추적 */
   const password = watch("password");
+
+  /**이메일 중복 검사 여부 판단 */
+  const [emailCheck, setEmailCheck] = useState(false);
 
   const emailDup = async () => {
     const email = watch("email");
@@ -29,17 +33,32 @@ const SignUp = () => {
       alert("이메일 아이디를 입력해주세요.");
     } else {
       await instance
-        .post("`${SERVER}/users/emailcheck", { email: email })
-        .then((a) => {
-          console.log(a);
+        .post("/users/emailcheck", { email: email })
+        .then((res) => {
+          alert(res.data.msg);
+          setEmailCheck(true);
         })
-        .catch((b) => {
-          console.log(b);
+        .catch((res) => {
+          alert(res.response.data.message);
         });
     }
   };
 
-  const onSignUp = (data: FieldValues) => {};
+  const onSignUp = async (data: FieldValues) => {
+    if (!emailCheck) {
+      alert("이메일 아이디 중복검사를 진행해주세요.");
+    } else {
+      await instance
+        .post("/users/signup", data)
+        .then((res) => {
+          alert(res.data.msg);
+          nav("/");
+        })
+        .catch(() => {
+          alert("잘못된 접근입니다.");
+        });
+    }
+  };
 
   return (
     <>
@@ -50,10 +69,11 @@ const SignUp = () => {
             type="text"
             placeholder="아이디"
             width="7.5rem"
+            disabled={emailCheck}
             {...register("email", emailValid())}
           />
           <span>@cyworld.com</span>
-          <StCheck onClick={emailDup} type="button">
+          <StCheck onClick={emailDup} disabled={emailCheck} type="button">
             중복검사
           </StCheck>
         </div>
