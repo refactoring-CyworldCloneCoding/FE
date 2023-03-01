@@ -39,7 +39,7 @@ const SignUp = () => {
           setEmailCheck(true);
         })
         .catch((res) => {
-          alert(res.response.data.message);
+          alert(res.response.data.msg);
         });
     }
   };

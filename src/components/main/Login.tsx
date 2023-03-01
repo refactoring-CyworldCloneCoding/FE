@@ -13,9 +13,9 @@ const Login = ({ setIsLogin }: ILogin) => {
         if (res.status === 200) {
           setAccessToken(res.data.accesstoken);
           setRefreshToken(res.data.refreshtoke);
-          sessionStorage.setItem("userHome", res.data.userId);
+          sessionStorage.setItem("userHome", res.data.myhomeId);
           setIsLogin(true);
-          alert("로그인 됐습니다.");
+          alert("로그인 하였습니다.");
         }
       })
       .catch((res) => {
