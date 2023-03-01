@@ -1,9 +1,9 @@
 import axios from "axios";
 
 /** 본인 미니홈피로 이동하기 */
-export const getMinihome = (num: string | null) => {
+export const getMinihome = (myHomeId: string | null) => {
   return window.open(
-    `/minihome/${num}`,
+    `/minihome/${myHomeId}`,
     "미니홈피",
     "width=1300, height=700, resizable=no"
   );

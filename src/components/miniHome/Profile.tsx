@@ -1,24 +1,28 @@
 import styled from "styled-components";
 import { FlexCenter } from "../../styles/css";
 import { getgenderCon } from "../../utils/getItem";
+import { getRamdomMinihome } from "../../utils/getMinihome";
 
-const Profile = () => {
+const Profile = ({ userInfo }: IInfo) => {
+  const userData = userInfo?.User;
+
   return (
     <StPageBox>
       <StToday>
-        Today<span> 122</span> | Total 11111
+        Today<span> {userInfo?.today}</span> | Total {userInfo?.total}
       </StToday>
       <StProf>
         <StEmotion>
           TODAY is ... <span>행복🥰</span>
         </StEmotion>
         <StProfileImage src="http://res.heraldm.com/content/image/2021/07/16/20210716000671_0.jpg" />
-        <StIntro>난...ㄱ ㅏ끔...눈물을 흘린ㄷ ㅏ...</StIntro>
+        <StIntro>{userInfo?.intro}</StIntro>
         <StHistory>히스토리</StHistory>
-        <StPado>파도타기</StPado>
+        <StPado onClick={getRamdomMinihome}>파도타기</StPado>
         <StUserinfo>
-          김싸이({getgenderCon("남자")}) <span>1999.09.90</span>
-          <p>cyworld@cyworld.com</p>
+          {userData?.name}({getgenderCon(userData?.gender)}){" "}
+          <span>{userData?.birth}</span>
+          <p>{userData?.email}</p>
         </StUserinfo>
       </StProf>
     </StPageBox>
@@ -77,10 +81,19 @@ const StProfileImage = styled.img`
 `;
 
 const StIntro = styled.div`
+  width: 10rem;
+  height: 4.8rem;
+
   margin-top: 2rem;
-  margin-bottom: 10rem;
-  text-align: center;
+  margin-bottom: 5.9rem;
+  word-break: break-all;
   font-size: 0.8rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box; // 얘네를 추가히준다
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
 `;
 
 const StHistory = styled.div`

@@ -12,13 +12,13 @@ const components: IComponent = {
 
 const menuBtns = ["홈", "다이어리", "방명록"];
 
-const Menu = () => {
+const Menu = ({ titleName }: IName) => {
   const [menu, setMenu] = useState("홈");
 
   return (
     <>
       <StFlex>
-        <StTitle>싸이월드님의 미니홈피 입니다.</StTitle>
+        <StTitle>{titleName}님의 미니홈피 입니다.</StTitle>
         <StMenuBox>{components[menu]}</StMenuBox>
       </StFlex>
       <StBtnBox>
