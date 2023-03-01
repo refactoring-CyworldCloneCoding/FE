@@ -32,7 +32,3 @@ export const removeCookieToken = () => {
 export const decodeAccessToken = () => {
   return decodeToken(getAccessToken());
 };
-
-export const decodeRefreshToken = () => {
-  return decodeToken(getRefreshToken());
-};

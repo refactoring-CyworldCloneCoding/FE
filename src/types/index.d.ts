@@ -15,3 +15,7 @@ interface IRandom {
 interface Istate {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
+
+interface ILogin {
+  setIsLogin: Dispatch<SetStateAction<boolean>>;
+}

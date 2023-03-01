@@ -1,13 +1,44 @@
+import { FieldValues, useForm } from "react-hook-form";
+import { instance } from "../../apis/axios";
 import styled from "styled-components";
+import { setAccessToken, setRefreshToken } from "../../apis/cookies";
 
-const Login = () => {
+const Login = ({ setIsLogin }: ILogin) => {
+  const { register, handleSubmit } = useForm();
+
+  const onLogin = async (data: FieldValues) => {
+    await instance
+      .post("/users/login", data)
+      .then((res) => {
+        if (res.status === 200) {
+          setAccessToken(res.data.accesstoken);
+          setRefreshToken(res.data.refreshtoke);
+          sessionStorage.setItem("userHome", res.data.userId);
+          setIsLogin(true);
+          alert("로그인 됐습니다.");
+        }
+      })
+      .catch((res) => {
+        if (res.response.status === 400) {
+          alert("아이디 또는 비밀번호를 다시 확인해주세요.");
+        }
+      });
+  };
   return (
     <>
       <StText>사이 좋은 사람들, 싸이월드 </StText>
-      <StForm>
+      <StForm onSubmit={handleSubmit(onLogin)}>
         <div>
-          <StInput type="email" placeholder="example@cyworld.com" />
-          <StInput type="password" placeholder="비밀번호" />
+          <StInput
+            type="email"
+            placeholder="example@cyworld.com"
+            {...register("email")}
+          />
+          <StInput
+            type="password"
+            placeholder="비밀번호"
+            {...register("password")}
+          />
         </div>
         <StLoginBtn type="submit">로그인</StLoginBtn>
       </StForm>

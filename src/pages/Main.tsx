@@ -1,20 +1,28 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Login from "../components/main/Login";
 import LoginUser from "../components/main/LoginUser";
 import MainBtn from "../components/main/MainBtn";
 import mainLogo from "../shared/images/mainLogo.png";
 import { MainBg } from "../styles/css";
+import { isToken } from "../utils/isToken";
 
 const Main = () => {
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    setIsLogin(isToken());
+  }, [isLogin]);
+
   return (
     <StMain>
       <StLogo src={mainLogo} alt="싸이월드메인로고" />
       <StBox>
-        {false ? (
-          <LoginUser />
+        {isLogin ? (
+          <LoginUser setIsLogin={setIsLogin} />
         ) : (
           <>
-            <Login />
+            <Login setIsLogin={setIsLogin} />
             <MainBtn />
           </>
         )}
