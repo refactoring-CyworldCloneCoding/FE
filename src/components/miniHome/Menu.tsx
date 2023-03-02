@@ -6,11 +6,11 @@ import Room from "./room/Room";
 
 const menuBtns = ["홈", "다이어리", "방명록"];
 
-const Menu = ({ userData }: IUSerData) => {
+const Menu = ({ userData, myHomeId }: IUSerData) => {
   const [menu, setMenu] = useState("홈");
 
   const components: IComponent = {
-    홈: <Room userData={userData} />,
+    홈: <Room userData={userData} myHomeId={myHomeId} />,
     다이어리: <Diary />,
     방명록: <GuestBook />,
   };

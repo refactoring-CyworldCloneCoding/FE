@@ -19,7 +19,7 @@ const MiniHome = () => {
       <StFlex>
         <Cover>
           <Profile userInfo={userInfo} />
-          <Menu userData={userData} />
+          <Menu userData={userData} myHomeId={myHomeId} />
         </Cover>
         <Player />
       </StFlex>

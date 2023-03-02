@@ -11,12 +11,12 @@ import { IsMyHome } from "../../utils/isToken";
 const Profile = ({ userInfo }: IInfo) => {
   const queryClient = useQueryClient();
   const userData = userInfo?.User;
-  const { myHomeId } = useParams();
+  const { param } = useParams();
   const [editIntro, setEditIntro] = useState(false);
   const [text, setText] = useState(userInfo?.intro);
 
   const onEidtIntro = () => {
-    putIntro.mutate({ intro: text, myHomeId });
+    putIntro.mutate({ intro: text, param });
     setEditIntro(false);
   };
 
@@ -59,7 +59,7 @@ const Profile = ({ userInfo }: IInfo) => {
         </StIntro>
         <StHistory>
           히스토리
-          {IsMyHome(myHomeId) && (
+          {IsMyHome(param) && (
             <>
               {editIntro ? (
                 <span onClick={onEidtIntro}>수정 완료</span>

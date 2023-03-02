@@ -15,6 +15,7 @@ type TUser = {
 /**유저 정보 받기 */
 interface IUSerData {
   userData: TUser;
+  myHomeId?: string;
 }
 
 /**프로필 정보 */
@@ -34,5 +35,10 @@ interface IInfo {
 /**인트로 수정 */
 interface IIntro {
   intro: string;
+  param: string | undefined;
+}
+
+/**미니홈피 정보 */
+interface IHome {
   myHomeId: string | undefined;
 }

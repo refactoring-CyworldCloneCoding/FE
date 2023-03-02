@@ -17,5 +17,5 @@ export const GetHomeInfo = (myHomeId: THome) => {
 
 /*프로필 소개 수정 */
 export const EditIntro = async (payload: IIntro) => {
-  await instance.put(`/users/${payload.myHomeId}`, { intro: payload.intro });
+  await instance.put(`/users/${payload.param}`, { intro: payload.intro });
 };
