@@ -21,7 +21,7 @@ const StJoin = styled.div`
 
 const StBox = styled.div`
   width: 26rem;
-  height: 35rem;
+  height: 38rem;
   border: 0.1rem solid #6d6d6d;
   border-radius: 0.5rem;
   padding: 1rem;

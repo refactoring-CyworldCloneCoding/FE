@@ -1,15 +1,46 @@
+import { useMutation, useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { DeleteBests, GetBests } from "../../../apis/illChonApi";
+import { IBest } from "../../../types/illchon";
+import { IsMyHome } from "../../../utils/isToken";
 
-const IllChonComent = () => {
+const IllChonComent = ({ myHomeId }: IHome) => {
+  const queryClient = useQueryClient();
+  const { param } = useParams();
+  const { data } = GetBests(myHomeId);
+
+  const deleteBest = useMutation(DeleteBests, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getBests");
+      alert("일촌평이 삭제되었습니다.");
+    },
+    onError: (err: any) => {
+      alert(err.response?.data.msg);
+    },
+  });
+
   return (
-    <StIllChonBox>
-      <StFlex>
-        <p>
-          · 일촌평 남겨요 (친구 <span>이름</span>)
-        </p>
-        <StBtn>x</StBtn>
-      </StFlex>
-    </StIllChonBox>
+    <>
+      {data?.data.map((best: IBest) => (
+        <StIllChonBox key={best.ilchonpyungId}>
+          <StFlex>
+            <p>
+              · {best?.ilchonpyung} ({best?.nick} <span>{best?.nick}</span>)
+            </p>
+            {IsMyHome(param) && (
+              <StBtn
+                onClick={() =>
+                  deleteBest.mutate({ id: best.ilchonpyungId, myHomeId })
+                }
+              >
+                x
+              </StBtn>
+            )}
+          </StFlex>
+        </StIllChonBox>
+      ))}
+    </>
   );
 };
 

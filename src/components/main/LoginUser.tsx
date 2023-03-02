@@ -1,17 +1,33 @@
 import styled from "styled-components";
+import { GetHomeInfo } from "../../apis/userApi";
 import { FlexCenter } from "../../styles/css";
 import { getMinimi } from "../../utils/getItem";
-import getMinihome from "../../utils/getMinihome";
+import { getMinihome } from "../../utils/getMinihome";
+import { deleteToken } from "../../utils/isToken";
 
-const LoginUser = () => {
+const LoginUser = ({ setIsLogin }: ILogin) => {
+  //본인 미니홈피 가기
+  const myHomeId = sessionStorage.getItem("userHome");
+
+  /**로그아웃 */
+  const LogOut = () => {
+    deleteToken();
+    setIsLogin(false);
+  };
+
+  const { data } = GetHomeInfo(myHomeId);
+  const userInfo = data?.data.User;
+
   return (
     <StUserBox>
-      <p>000님 반갑습니다.</p>
+      <p>{userInfo?.name}님 반갑습니다.</p>
       <StFlexdiv>
-        <img src={getMinimi("여자")} alt="성별미니미" />
+        <img src={getMinimi(userInfo?.gender)} alt="성별미니미" />
         <StBtnBox>
-          <StButton onClick={() => getMinihome(1)}>마이 미니홈피 가기</StButton>
-          <StLogOut>로그아웃 하기 </StLogOut>
+          <StButton onClick={() => getMinihome(myHomeId)}>
+            마이 미니홈피 가기
+          </StButton>
+          <StLogOut onClick={LogOut}>로그아웃 하기 </StLogOut>
         </StBtnBox>
       </StFlexdiv>
     </StUserBox>

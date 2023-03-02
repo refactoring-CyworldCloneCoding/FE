@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import { FlexCenter } from "../../../styles/css";
-import { getAvt, getMiniroom } from "../../../utils/getItem";
+import { getAvt, getMiniroom, Tgender } from "../../../utils/getItem";
 import IllChonComent from "./IllChonComent";
 import IllchonInput from "./IllchonInput";
 
-const Room = () => {
+const Room = ({ userData, myHomeId }: IUSerData) => {
   return (
     <StRoomBox>
       <StTitle>
         <p>미니룸</p>
       </StTitle>
-      <StRoom src={getMiniroom("여자")} alt="미니룸" />
-      <StAvt src={getAvt("여자")} alt="미니미" />
+      <StRoom src={getMiniroom(userData?.gender as Tgender)} alt="미니룸" />
+      <StAvt src={getAvt(userData?.gender as Tgender)} alt="미니미" />
       <IllchonInput />
-      <IllChonComent />
+      <IllChonComent myHomeId={myHomeId} />
     </StRoomBox>
   );
 };

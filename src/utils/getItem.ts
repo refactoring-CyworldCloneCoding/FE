@@ -14,6 +14,10 @@ import six from "../shared/images/bookMinimi/six.gif";
 
 export type Tgender = "남자" | "여자";
 
+interface IGenderCon {
+  [key: string]: string;
+}
+
 export const minimi = {
   남자: minimi_m,
   여자: minimi_f,
@@ -29,7 +33,7 @@ export const miniroom = {
   여자: miniroom2,
 };
 
-export const genderCon = {
+export const genderCon: IGenderCon = {
   남자: "♂",
   여자: "♀",
 };
@@ -46,7 +50,7 @@ export const getMiniroom = (gender: Tgender) => {
   return miniroom[gender];
 };
 
-export const getgenderCon = (gender: Tgender) => {
+export const getgenderCon = (gender: string) => {
   return genderCon[gender];
 };
 

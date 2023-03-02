@@ -1,4 +1,6 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { GetHomeInfo } from "../apis/userApi";
 import Layout from "../components/layout/Layout";
 import Cover from "../components/miniHome/Cover";
 import Menu from "../components/miniHome/Menu";
@@ -6,12 +8,18 @@ import Player from "../components/miniHome/Player";
 import Profile from "../components/miniHome/Profile";
 
 const MiniHome = () => {
+  const { myHomeId } = useParams();
+
+  const { data } = GetHomeInfo(myHomeId);
+  const userInfo = data?.data;
+  const userData = userInfo?.User;
+
   return (
     <Layout>
       <StFlex>
         <Cover>
-          <Profile />
-          <Menu />
+          <Profile userInfo={userInfo} />
+          <Menu userData={userData} myHomeId={myHomeId} />
         </Cover>
         <Player />
       </StFlex>

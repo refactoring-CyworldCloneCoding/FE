@@ -10,7 +10,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/join" element={<Join />} />
-        <Route path="/minihome/:userId" element={<MiniHome />} />
+        <Route path="/minihome/:myHomeId" element={<MiniHome />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -3,21 +3,32 @@ import { decodeToken } from "react-jwt";
 
 const cookies = new Cookies();
 
-// 로그인 시 사용자 정보를 담은 쿠키를 생성한다
-export const setCookie = (name: string, value?: string) => {
-  return cookies.set(name, value);
+/** 로그인 시 사용자 정보를 담은 쿠키를 생성한다 */
+export const setAccessToken = (accessToken: string) => {
+  return cookies.set("accessToken", accessToken);
 };
 
-// 사용자 인증이 필요한 데이터를 요청할 때 쿠키를 가져온다
-export const getCookie = (name: string) => {
-  return cookies.get(name);
+export const setRefreshToken = (refreshToken: string) => {
+  return cookies.set("refreshToken", refreshToken);
 };
 
-//쿠키를 지운다
-export const removeCookie = (name: string) => {
-  return cookies.remove(name);
+/** 사용자 인증이 필요한 데이터를 요청할 때 쿠키를 가져온다 */
+export const getAccessToken = () => {
+  return cookies.get("accessToken");
 };
 
-export const decodeCookie = (name: string) => {
-  return decodeToken(getCookie(name));
+export const getRefreshToken = () => {
+  return cookies.get("refreshToken");
+};
+
+/** 쿠키를 지운다 */
+export const removeCookieToken = () => {
+  cookies.remove("accessToken");
+  cookies.remove("refreshToken");
+};
+
+/**쿠키를 디코딩한다 */
+
+export const decodeAccessToken = () => {
+  return decodeToken(getAccessToken());
 };

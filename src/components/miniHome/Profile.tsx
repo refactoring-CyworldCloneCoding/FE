@@ -1,24 +1,79 @@
+import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { EditIntro } from "../../apis/userApi";
 import { FlexCenter } from "../../styles/css";
 import { getgenderCon } from "../../utils/getItem";
+import { getRamdomMinihome } from "../../utils/getMinihome";
+import { IsMyHome } from "../../utils/isToken";
 
-const Profile = () => {
+const Profile = ({ userInfo }: IInfo) => {
+  const queryClient = useQueryClient();
+  const userData = userInfo?.User;
+  const { param } = useParams();
+  const [editIntro, setEditIntro] = useState(false);
+  const [text, setText] = useState(userInfo?.intro);
+
+  const onEidtIntro = () => {
+    putIntro.mutate({ intro: text, param });
+    setEditIntro(false);
+  };
+
+  /**소개글 수정 */
+  const putIntro = useMutation(EditIntro, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("homeInfo");
+      alert("소개글이 수정되었습니다.");
+    },
+    onError: () => {
+      alert("다시 시도해주세요.");
+    },
+  });
+
+  const onChangeText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(event.target.value);
+  };
+
   return (
     <StPageBox>
       <StToday>
-        Today<span> 122</span> | Total 11111
+        Today<span> {userInfo?.today}</span> | Total {userInfo?.total}
       </StToday>
       <StProf>
         <StEmotion>
           TODAY is ... <span>행복🥰</span>
         </StEmotion>
         <StProfileImage src="http://res.heraldm.com/content/image/2021/07/16/20210716000671_0.jpg" />
-        <StIntro>난...ㄱ ㅏ끔...눈물을 흘린ㄷ ㅏ...</StIntro>
-        <StHistory>히스토리</StHistory>
-        <StPado>파도타기</StPado>
+        <StIntro>
+          {editIntro ? (
+            <textarea
+              maxLength={45}
+              placeholder="45자이내로 작성하기."
+              defaultValue={userInfo?.intro}
+              onChange={onChangeText}
+            />
+          ) : (
+            userInfo?.intro
+          )}
+        </StIntro>
+        <StHistory>
+          히스토리
+          {IsMyHome(param) && (
+            <>
+              {editIntro ? (
+                <span onClick={onEidtIntro}>수정 완료</span>
+              ) : (
+                <span onClick={() => setEditIntro(true)}>소개글 수정</span>
+              )}
+            </>
+          )}
+        </StHistory>
+        <StPado onClick={getRamdomMinihome}>파도타기</StPado>
         <StUserinfo>
-          김싸이({getgenderCon("남자")}) <span>1999.09.90</span>
-          <p>cyworld@cyworld.com</p>
+          {userData?.name}({getgenderCon(userData?.gender)})
+          <span>{userData?.birth}</span>
+          <p>{userData?.email}</p>
         </StUserinfo>
       </StProf>
     </StPageBox>
@@ -77,10 +132,26 @@ const StProfileImage = styled.img`
 `;
 
 const StIntro = styled.div`
+  width: 10rem;
+  height: 4.8rem;
+
   margin-top: 2rem;
-  margin-bottom: 10rem;
-  text-align: center;
+  margin-bottom: 5.9rem;
+  padding: 0.2rem;
+  word-break: break-all;
   font-size: 0.8rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box; // 얘네를 추가히준다
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  textarea {
+    width: 100%;
+    height: 100%;
+    font-size: 0.8rem;
+  }
 `;
 
 const StHistory = styled.div`
@@ -90,6 +161,13 @@ const StHistory = styled.div`
   font-size: 0.8rem;
   font-weight: 700;
   color: #1ea7cc;
+  span {
+    cursor: pointer;
+    margin-left: 3.5rem;
+    font-weight: 500;
+    font-size: 0.6rem;
+    color: #000000;
+  }
 `;
 
 const StPado = styled.div`
