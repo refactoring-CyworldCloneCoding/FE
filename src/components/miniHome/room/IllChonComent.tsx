@@ -28,7 +28,7 @@ const IllChonComent = ({ myHomeId }: IHome) => {
             <p>
               · {best?.ilchonpyung} ({best?.nick} <span>{best?.nick}</span>)
             </p>
-            {IsMyHome(param) && (
+            {IsMyHome(param) || IsMyHome(best.userId) || (
               <StBtn
                 onClick={() =>
                   deleteBest.mutate({ id: best.ilchonpyungId, myHomeId })
