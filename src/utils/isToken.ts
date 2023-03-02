@@ -12,9 +12,9 @@ export const deleteToken = () => {
   sessionStorage.clear();
 };
 
-/**본인 미니홈피 여부 판단 */
+/**본인 미니홈피 여부 판단 */ //나 또는 당사자
 const myHomeId = sessionStorage.getItem("userHome");
 
-export const IsMyHome = (params: string | undefined) => {
-  return myHomeId === params;
+export const IsMyHome = (id: string | number | undefined) => {
+  return myHomeId === id;
 };
