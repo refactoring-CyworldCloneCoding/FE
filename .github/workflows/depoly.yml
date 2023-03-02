@@ -21,6 +21,10 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: Setting .env
+        run: |
+          echo "REACT_APP_SERVER=${{ secrets.REACT_APP_SERVER }}" >> .env
+
       - name: Build
         run: yarn build
 
