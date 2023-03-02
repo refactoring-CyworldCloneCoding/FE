@@ -1,10 +1,6 @@
 /**미니홈피 조회 */
 type THome = string | null | undefined;
 
-/**타이틀 이름 */
-interface IName {
-  titleName: string;
-}
 /**유저 정보 */
 type TUser = {
   birth: string;
@@ -15,6 +11,11 @@ type TUser = {
   updatedAt: number;
   userId: number;
 };
+
+/**유저 정보 받기 */
+interface IUSerData {
+  userData: TUser;
+}
 
 /**프로필 정보 */
 interface IInfo {

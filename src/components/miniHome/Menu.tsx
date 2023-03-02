@@ -4,21 +4,21 @@ import Diary from "./Diary/Diary";
 import GuestBook from "./Guest/GuestBook";
 import Room from "./room/Room";
 
-const components: IComponent = {
-  홈: <Room />,
-  다이어리: <Diary />,
-  방명록: <GuestBook />,
-};
-
 const menuBtns = ["홈", "다이어리", "방명록"];
 
-const Menu = ({ titleName }: IName) => {
+const Menu = ({ userData }: IUSerData) => {
   const [menu, setMenu] = useState("홈");
+
+  const components: IComponent = {
+    홈: <Room userData={userData} />,
+    다이어리: <Diary />,
+    방명록: <GuestBook />,
+  };
 
   return (
     <>
       <StFlex>
-        <StTitle>{titleName}님의 미니홈피 입니다.</StTitle>
+        <StTitle>{userData?.name}님의 미니홈피 입니다.</StTitle>
         <StMenuBox>{components[menu]}</StMenuBox>
       </StFlex>
       <StBtnBox>

@@ -12,14 +12,14 @@ const MiniHome = () => {
 
   const { data } = GetHomeInfo(myHomeId);
   const userInfo = data?.data;
-  const titleName = userInfo?.User.name;
+  const userData = userInfo?.User;
 
   return (
     <Layout>
       <StFlex>
         <Cover>
           <Profile userInfo={userInfo} />
-          <Menu titleName={titleName} />
+          <Menu userData={userData} />
         </Cover>
         <Player />
       </StFlex>

@@ -71,7 +71,7 @@ const Profile = ({ userInfo }: IInfo) => {
         </StHistory>
         <StPado onClick={getRamdomMinihome}>파도타기</StPado>
         <StUserinfo>
-          {userData?.name}({getgenderCon(userData?.gender)}){" "}
+          {userData?.name}({getgenderCon(userData?.gender)})
           <span>{userData?.birth}</span>
           <p>{userData?.email}</p>
         </StUserinfo>
