@@ -12,7 +12,7 @@ const Login = ({ setIsLogin }: ILogin) => {
       .then((res) => {
         if (res.status === 200) {
           setAccessToken(res.data.accesstoken);
-          setRefreshToken(res.data.refreshtoke);
+          setRefreshToken(res.data.refreshtoken);
           sessionStorage.setItem("userHome", res.data.myhomeId);
           setIsLogin(true);
           alert("로그인 하였습니다.");

@@ -29,3 +29,9 @@ interface IInfo {
     userId: number;
   };
 }
+
+/**인트로 수정 */
+interface IIntro {
+  intro: string;
+  myHomeId: string | undefined;
+}
