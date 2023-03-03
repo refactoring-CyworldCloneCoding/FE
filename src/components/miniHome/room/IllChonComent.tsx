@@ -26,7 +26,7 @@ const IllChonComent = ({ myHomeId }: IHome) => {
         <StIllChonBox key={best.ilchonpyungId}>
           <StFlex>
             <p>
-              · {best?.ilchonpyung} ({best?.nick} <span>{best?.nick}</span>)
+              · {best?.ilchonpyung} ({best?.nick} <span>{best?.name}</span>)
             </p>
             {IsMyHome(param) || IsMyHome(best.userId) || (
               <StBtn

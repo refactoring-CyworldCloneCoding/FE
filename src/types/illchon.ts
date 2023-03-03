@@ -14,6 +14,7 @@ export interface IBest {
   ilchonpyung: string;
   ilchonpyungId: number;
   myhomeId: number;
+  name: number;
   nick: string;
   updatedAt: number;
   userId: number;
