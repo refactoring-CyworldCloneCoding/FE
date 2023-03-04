@@ -38,11 +38,12 @@ const StBookDiv = styled.div`
   width: 100%;
   height: 8rem;
   display: flex;
+  padding: 0.4rem;
   font-size: 0.9rem;
 `;
 
 const StMinimi = styled.img`
-  width: 25%;
+  width: 22%;
 `;
 
 const StTitle = styled.div`

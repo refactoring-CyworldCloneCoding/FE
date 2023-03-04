@@ -30,7 +30,7 @@ const StBookDiv = styled.div`
 `;
 
 const StMinimi = styled.img`
-  width: 25%;
+  width: 22%;
   border: 0.1rem solid gray;
   background-color: white;
 `;
