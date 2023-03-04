@@ -63,8 +63,12 @@ export const booksCon: IRandom = {
   5: six,
 };
 
-export const radomNum = Math.floor(Math.random() * 6);
+const randomNum = Math.floor(Math.random() * 6);
 
-export const getBookMinimi = () => {
-  return booksCon[radomNum];
+export const getBookMinimi = (bookImg?: string) => {
+  if (bookImg) {
+    return booksCon[bookImg];
+  } else {
+    return booksCon[randomNum];
+  }
 };

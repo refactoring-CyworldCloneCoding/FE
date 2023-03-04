@@ -63,8 +63,8 @@ export const genderVaild = () => ({
 export const birthVaild = () => ({
   required: "생년월일을 선택해주세요.",
   min: {
-    value: "1800-01-01",
-    message: "1800년대 이상으로 작성해주세요.",
+    value: "1900-01-01",
+    message: "1900년대 이상으로 작성해주세요.",
   },
   max: {
     value: "2004-12-31",

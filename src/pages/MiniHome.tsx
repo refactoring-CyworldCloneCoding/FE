@@ -8,9 +8,9 @@ import Player from "../components/miniHome/Player";
 import Profile from "../components/miniHome/Profile";
 
 const MiniHome = () => {
-  const { myHomeId } = useParams();
+  const { homeId } = useParams();
 
-  const { data } = GetHomeInfo(myHomeId);
+  const { data } = GetHomeInfo(homeId);
   const userInfo = data?.data;
   const userData = userInfo?.User;
 
@@ -19,7 +19,7 @@ const MiniHome = () => {
       <StFlex>
         <Cover>
           <Profile userInfo={userInfo} />
-          <Menu userData={userData} myHomeId={myHomeId} />
+          <Menu userData={userData} />
         </Cover>
         <Player />
       </StFlex>
