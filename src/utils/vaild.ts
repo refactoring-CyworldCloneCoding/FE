@@ -71,27 +71,3 @@ export const birthVaild = () => ({
     message: "2004년 이전 출생자만 가능합니다.",
   },
 });
-
-/**일촌평 검사 */
-export const bestVaild = () => ({
-  required: "내용을 입력해주세요.",
-  min: {
-    maxLength: 3,
-    message: "1900년대 이상으로 작성해주세요.",
-  },
-  max: {
-    value: "2004-12-31",
-    message: "2004년 이전 출생자만 가능합니다.",
-  },
-});
-
-/**방명록 검사 */
-export const bookVaild = () => ({
-  required: "내용을 입력해주세요.",
-  maxLength: {
-    value: 150,
-    message: "150자 이내로 작성해주세요.",
-  },
-});
-
-/**다이어리 검사  */

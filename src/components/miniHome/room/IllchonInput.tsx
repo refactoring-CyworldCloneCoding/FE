@@ -13,7 +13,6 @@ const IllchonInput = () => {
   const postBests = useMutation(PostBests, {
     onSuccess: () => {
       queryClient.invalidateQueries("getBests");
-      alert("일촌평이 작성되었습니다.");
     },
     onError: (err: any) => {
       alert(err.response?.data.msg);

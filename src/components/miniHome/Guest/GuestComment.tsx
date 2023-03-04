@@ -1,21 +1,17 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { DeleteBook, GetBook } from "../../../apis/guestApi";
+import { DeleteBook, EditBook } from "../../../apis/guestApi";
 import { IBook } from "../../../types/guestBook";
 import { getBookMinimi } from "../../../utils/getItem";
 import { getMinihome } from "../../../utils/getMinihome";
 import { IsMyHome } from "../../../utils/isToken";
 
-const GuestComment = () => {
+const GuestComment = ({ book }: IBook) => {
   const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
-  const { homeId } = useParams();
-
-  const { data } = GetBook(homeId);
-  const books = data?.data;
-
+  const [text, setText] = useState(book?.guestBook);
+  /**방명록 삭제 */
   const deleteBook = useMutation(DeleteBook, {
     onSuccess: () => {
       queryClient.invalidateQueries("getGestBook");
@@ -26,35 +22,63 @@ const GuestComment = () => {
     },
   });
 
+  /**방명록 수정*/
+
+  const onChangeText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(event.target.value);
+  };
+
+  const modifyBook = useMutation(EditBook, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getGestBook");
+      alert("방명록이 수정되었습니다.");
+    },
+    onError: (err: any) => {
+      alert(err.response?.data.msg);
+    },
+  });
+
+  const rewriteBook = (guestbookId: number) => {
+    if (text.trim() === "") {
+      alert("공백이 아닌 내용을 입력해주세요.");
+    } else {
+      modifyBook.mutate({ text, guestbookId });
+      setIsEdit(false);
+    }
+  };
+
   return (
     <>
-      {books?.map((book: IBook) => (
-        <>
-          <StTitle>
-            <p>
-              No.{book?.guestBookNum}
-              <span onClick={() => getMinihome(book?.userId)}>
-                {book?.name} 🏠
-              </span>
-              ({book?.updatedAt})
-            </p>
-            {IsMyHome(book.myhomeId) || IsMyHome(book.userId) ? (
-              <div>
-                <button onClick={() => setIsEdit((x) => !x)}>
-                  {isEdit ? "완료" : "수정"}
-                </button>
-                <button onClick={() => deleteBook.mutate(book.guestbookId)}>
-                  삭제
-                </button>
-              </div>
-            ) : null}
-          </StTitle>
-          <StBookDiv>
-            <StMinimi src={getBookMinimi(book?.bookImage)} alt="미니미" />
-            {isEdit ? <StEditText /> : <StText>{book?.guestBook}</StText>}
-          </StBookDiv>
-        </>
-      ))}
+      <StTitle>
+        <p>
+          No.{book?.guestBookNum}
+          <span onClick={() => getMinihome(book?.userId)}>{book?.name} 🏠</span>
+          ({book?.updatedAt})
+        </p>
+        {IsMyHome(book.myhomeId) || IsMyHome(book.userId) ? (
+          <div>
+            {isEdit ? (
+              <button onClick={() => rewriteBook(book.guestbookId)}>
+                완료
+              </button>
+            ) : (
+              <button onClick={() => setIsEdit(true)}>수정</button>
+            )}
+
+            <button onClick={() => deleteBook.mutate(book.guestbookId)}>
+              삭제
+            </button>
+          </div>
+        ) : null}
+      </StTitle>
+      <StBookDiv>
+        <StMinimi src={getBookMinimi(book?.bookImage)} alt="미니미" />
+        {isEdit ? (
+          <StEditText onChange={onChangeText} defaultValue={book?.guestBook} />
+        ) : (
+          <StText>{book?.guestBook}</StText>
+        )}
+      </StBookDiv>
     </>
   );
 };
@@ -105,7 +129,7 @@ const StText = styled.div`
 
 const StEditText = styled.textarea`
   width: 75%;
-  padding: 1rem;
   border: 0.1rem solid #eee;
   margin: 0.4rem 0;
+  font-size: 0.9rem;
 `;

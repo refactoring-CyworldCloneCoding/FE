@@ -20,9 +20,16 @@ export const PostBook = async (payload: IPayload) => {
   await instance.post(`/guestbooks/${payload.homeId}`, payload.data);
 };
 
+interface IBookEdit {
+  text: string;
+  guestbookId: number;
+}
 /** 방명록 수정 */
-export const EditBook = async (payload: IPayload) => {
-  await instance.put(`/guestbooks/${payload.id}`, payload.data);
+export const EditBook = async (payload: IBookEdit) => {
+  console.log(payload);
+  await instance.put(`/guestbooks/${payload.guestbookId}`, {
+    guestbook: payload.text,
+  });
 };
 
 /** 방명록 삭제 */

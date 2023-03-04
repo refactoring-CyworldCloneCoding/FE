@@ -4,15 +4,10 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { PostBook } from "../../../apis/guestApi";
 import { getBookMinimi } from "../../../utils/getItem";
-import { bookVaild } from "../../../utils/vaild";
 
 const GuestInput = () => {
   const queryClient = useQueryClient();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const { homeId } = useParams();
 
@@ -24,13 +19,6 @@ const GuestInput = () => {
       alert(err.response?.data.msg);
     },
   });
-
-  /** 제출 오류 */
-  const errHandler = () => {
-    errors?.guestbook?.message === undefined
-      ? alert("다시 시도해주세요.")
-      : alert(errors?.guestbook?.message);
-  };
 
   const randomNum = `${Math.floor(Math.random() * 6)}`;
 
@@ -45,10 +33,14 @@ const GuestInput = () => {
   };
 
   return (
-    <StBookDiv onSubmit={handleSubmit(writeBook, errHandler)}>
+    <StBookDiv onSubmit={handleSubmit(writeBook)}>
       <StFlex>
         <StMinimi src={getBookMinimi()} alt="미니미" />
-        <StText maxLength={150} {...register("guestbook", bookVaild())} />
+        <StText
+          placeholder="방명록을 작성해보세요."
+          maxLength={150}
+          {...register("guestbook")}
+        />
       </StFlex>
       <button>등록</button>
     </StBookDiv>

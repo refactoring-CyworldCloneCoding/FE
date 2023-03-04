@@ -19,5 +19,5 @@ export const deleteToken = () => {
 const myHomeId = sessionStorage.getItem("userId");
 
 export const IsMyHome = (id: string | number | undefined) => {
-  return myHomeId == id;
+  return myHomeId === `${id}`;
 };

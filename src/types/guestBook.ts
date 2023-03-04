@@ -1,4 +1,8 @@
 export interface IBook {
+  book: TBook;
+}
+
+export type TBook = {
   bookImage: string;
   createdAt: number;
   guestBook: string;
@@ -8,4 +12,4 @@ export interface IBook {
   name: string;
   updatedAt: number;
   userId: number;
-}
+};
