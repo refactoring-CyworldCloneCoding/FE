@@ -8,7 +8,7 @@ import { FlexCenter } from "../../../styles/css";
 const IllchonInput = () => {
   const queryClient = useQueryClient();
   const { register, handleSubmit, reset } = useForm();
-  const { myHomeId } = useParams();
+  const { homeId } = useParams();
 
   const postBests = useMutation(PostBests, {
     onSuccess: () => {
@@ -24,7 +24,7 @@ const IllchonInput = () => {
     if (data?.nick.trim() === "" || data?.ilchonpyung.trim() === "") {
       alert("공백 없이 작성해주세요");
     } else {
-      postBests.mutate({ data, myHomeId });
+      postBests.mutate({ data, homeId });
       reset();
     }
   };

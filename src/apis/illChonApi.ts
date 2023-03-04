@@ -1,13 +1,12 @@
 import { useQuery } from "react-query";
-import { IBests } from "../types/illchon";
 import { instance } from "./axios";
 
 /** 일촌평 조회 */
-export const GetBests = (myHomeId: THome) => {
+export const GetBests = (homeId: THome) => {
   return useQuery(
     ["getBests"],
     async () => {
-      const { data } = await instance.get(`/bests/${myHomeId}`);
+      const { data } = await instance.get(`/bests/${homeId}`);
       return data;
     },
     {
@@ -17,13 +16,13 @@ export const GetBests = (myHomeId: THome) => {
 };
 
 /** 일촌평 작성 */
-export const PostBests = async (payload: IBests) => {
-  await instance.post(`/bests/${payload.myHomeId}`, payload.data);
+export const PostBests = async (payload: IPayload) => {
+  await instance.post(`/bests/${payload.homeId}`, payload.data);
 };
 
 /** 일촌평 삭제 */
-export const DeleteBests = async (payload: IBests) => {
-  await instance.delete(`/bests/${payload.id}/${payload.myHomeId}`);
+export const DeleteBests = async (payload: IPayload) => {
+  await instance.delete(`/bests/${payload.id}/${payload.homeId}`);
 };
 
 /** 일촌평 수정 */

@@ -7,7 +7,7 @@ import { deleteToken } from "../../utils/isToken";
 
 const LoginUser = ({ setIsLogin }: ILogin) => {
   //본인 미니홈피 가기
-  const myHomeId = sessionStorage.getItem("userHome");
+  const myHomeId = sessionStorage.getItem("userId");
 
   /**로그아웃 */
   const LogOut = () => {

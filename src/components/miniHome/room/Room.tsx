@@ -4,7 +4,7 @@ import { getAvt, getMiniroom, Tgender } from "../../../utils/getItem";
 import IllChonComent from "./IllChonComent";
 import IllchonInput from "./IllchonInput";
 
-const Room = ({ userData, myHomeId }: IUSerData) => {
+const Room = ({ userData }: IUSerData) => {
   return (
     <StRoomBox>
       <StTitle>
@@ -13,7 +13,7 @@ const Room = ({ userData, myHomeId }: IUSerData) => {
       <StRoom src={getMiniroom(userData?.gender as Tgender)} alt="미니룸" />
       <StAvt src={getAvt(userData?.gender as Tgender)} alt="미니미" />
       <IllchonInput />
-      <IllChonComent myHomeId={myHomeId} />
+      <IllChonComent />
     </StRoomBox>
   );
 };

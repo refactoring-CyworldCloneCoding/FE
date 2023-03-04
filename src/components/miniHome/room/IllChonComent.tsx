@@ -5,10 +5,10 @@ import { DeleteBests, GetBests } from "../../../apis/illChonApi";
 import { IBest } from "../../../types/illchon";
 import { IsMyHome } from "../../../utils/isToken";
 
-const IllChonComent = ({ myHomeId }: IHome) => {
+const IllChonComent = () => {
   const queryClient = useQueryClient();
-  const { param } = useParams();
-  const { data } = GetBests(myHomeId);
+  const { homeId } = useParams();
+  const { data } = GetBests(homeId);
 
   const deleteBest = useMutation(DeleteBests, {
     onSuccess: () => {
@@ -22,24 +22,24 @@ const IllChonComent = ({ myHomeId }: IHome) => {
 
   return (
     <>
-      {data?.data.map((best: IBest) => (
-        <StIllChonBox key={best.ilchonpyungId}>
-          <StFlex>
+      <StIllChonBox>
+        {data?.data.map((best: IBest) => (
+          <StFlex key={best.ilchonpyungId}>
             <p>
               · {best?.ilchonpyung} ({best?.nick} <span>{best?.name}</span>)
             </p>
-            {IsMyHome(param) || IsMyHome(best.userId) || (
+            {IsMyHome(best.myhomeId) || IsMyHome(best.userId) ? (
               <StBtn
                 onClick={() =>
-                  deleteBest.mutate({ id: best.ilchonpyungId, myHomeId })
+                  deleteBest.mutate({ id: best.ilchonpyungId, homeId })
                 }
               >
                 x
               </StBtn>
-            )}
+            ) : null}
           </StFlex>
-        </StIllChonBox>
-      ))}
+        ))}
+      </StIllChonBox>
     </>
   );
 };
@@ -67,6 +67,7 @@ const StBtn = styled.button`
 `;
 
 const StFlex = styled.div`
+  margin: 0.1rem 0;
   display: flex;
   justify-content: space-between;
   p {

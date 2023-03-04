@@ -1,33 +1,44 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { GetBook } from "../../../apis/guestApi";
+import { IBook } from "../../../types/guestBook";
 import { getBookMinimi } from "../../../utils/getItem";
 
 const GuestComment = () => {
   const [isEdit, setIsEdit] = useState(false);
+  const { homeId } = useParams();
+
+  const { data } = GetBook(homeId);
+  const books = data?.data;
 
   return (
     <>
-      <StTitle>
-        <p>
-          No.11
-          <span>김싸이 🏠</span>
-          (2020.20.20 19:20)
-        </p>
-        <div>
-          <button onClick={() => setIsEdit((x) => !x)}>
-            {isEdit ? "완료" : "수정"}
-          </button>
-          <button>삭제</button>
-        </div>
-      </StTitle>
-      <StBookDiv>
-        <StMinimi src={getBookMinimi()} alt="미니미" />
-        {isEdit ? (
-          <StEditText />
-        ) : (
-          <StText>안녕하세요. 150자 제한, src 넘버도 넘기기</StText>
-        )}
-      </StBookDiv>
+      {books?.map((book: IBook) => (
+        <>
+          <StTitle>
+            <p>
+              No.11
+              <span>김싸이 🏠</span>
+              (2020.20.20 19:20)
+            </p>
+            <div>
+              <button onClick={() => setIsEdit((x) => !x)}>
+                {isEdit ? "완료" : "수정"}
+              </button>
+              <button>삭제</button>
+            </div>
+          </StTitle>
+          <StBookDiv>
+            <StMinimi src={getBookMinimi()} alt="미니미" />
+            {isEdit ? (
+              <StEditText />
+            ) : (
+              <StText>안녕하세요. 150자 제한, src 넘버도 넘기기</StText>
+            )}
+          </StBookDiv>
+        </>
+      ))}
     </>
   );
 };

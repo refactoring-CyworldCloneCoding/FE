@@ -3,12 +3,6 @@ export type TBests = {
   nick?: string;
 };
 
-export interface IBests {
-  data?: TBests;
-  id?: number;
-  myHomeId: string | undefined;
-}
-
 export interface IBest {
   createdAt: number;
   ilchonpyung: string;
