@@ -26,6 +26,6 @@ export const EditBook = async (payload: IPayload) => {
 };
 
 /** 방명록 삭제 */
-export const DeleteBook = async (payload: IPayload) => {
-  await instance.put(`/guestbooks/${payload.id}`, payload.data);
+export const DeleteBook = async (payload: number) => {
+  await instance.delete(`/guestbooks/${payload}`);
 };

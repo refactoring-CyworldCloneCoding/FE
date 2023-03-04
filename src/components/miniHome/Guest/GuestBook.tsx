@@ -7,7 +7,6 @@ const GuestBook = () => {
     <StGuestBox>
       <GuestInput />
       <GuestComment />
-      <GuestComment />
     </StGuestBox>
   );
 };

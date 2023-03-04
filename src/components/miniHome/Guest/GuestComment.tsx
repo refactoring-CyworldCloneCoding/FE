@@ -1,16 +1,30 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { GetBook } from "../../../apis/guestApi";
+import { DeleteBook, GetBook } from "../../../apis/guestApi";
 import { IBook } from "../../../types/guestBook";
 import { getBookMinimi } from "../../../utils/getItem";
+import { getMinihome } from "../../../utils/getMinihome";
+import { IsMyHome } from "../../../utils/isToken";
 
 const GuestComment = () => {
+  const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
   const { homeId } = useParams();
 
   const { data } = GetBook(homeId);
   const books = data?.data;
+
+  const deleteBook = useMutation(DeleteBook, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getGestBook");
+      alert("방명록이 삭제되었습니다.");
+    },
+    onError: (err: any) => {
+      alert(err.response?.data.msg);
+    },
+  });
 
   return (
     <>
@@ -18,24 +32,26 @@ const GuestComment = () => {
         <>
           <StTitle>
             <p>
-              No.11
-              <span>김싸이 🏠</span>
-              (2020.20.20 19:20)
+              No.{book?.guestBookNum}
+              <span onClick={() => getMinihome(book?.userId)}>
+                {book?.name} 🏠
+              </span>
+              ({book?.updatedAt})
             </p>
-            <div>
-              <button onClick={() => setIsEdit((x) => !x)}>
-                {isEdit ? "완료" : "수정"}
-              </button>
-              <button>삭제</button>
-            </div>
+            {IsMyHome(book.myhomeId) || IsMyHome(book.userId) ? (
+              <div>
+                <button onClick={() => setIsEdit((x) => !x)}>
+                  {isEdit ? "완료" : "수정"}
+                </button>
+                <button onClick={() => deleteBook.mutate(book.guestbookId)}>
+                  삭제
+                </button>
+              </div>
+            ) : null}
           </StTitle>
           <StBookDiv>
-            <StMinimi src={getBookMinimi()} alt="미니미" />
-            {isEdit ? (
-              <StEditText />
-            ) : (
-              <StText>안녕하세요. 150자 제한, src 넘버도 넘기기</StText>
-            )}
+            <StMinimi src={getBookMinimi(book?.bookImage)} alt="미니미" />
+            {isEdit ? <StEditText /> : <StText>{book?.guestBook}</StText>}
           </StBookDiv>
         </>
       ))}
