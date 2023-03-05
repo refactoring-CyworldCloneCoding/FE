@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { FlexCenter } from "../../../styles/css";
 
 const DiaryComment = () => {
   const [isEdit, setIsEdit] = useState(false);

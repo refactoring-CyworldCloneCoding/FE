@@ -1,17 +1,22 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import Modal from "../../../elements/Modal";
+import { GetDiary } from "../../../apis/diaryApi";
+import DiaryModal from "./DiaryModal";
 import DiaryContent from "./DiaryContent";
 
 const Diary = () => {
   const [open, setOpen] = useState(false);
+  const { homeId } = useParams();
+  const { data } = GetDiary(homeId);
+  console.log(data);
 
   return (
     <>
-      {open && <Modal setOpen={setOpen} />}
+      {open && <DiaryModal homeId={homeId} setOpen={setOpen} />}
       <StFlex>
         <StBtnBox>
-          <StBtn onClick={() => setOpen((x) => !x)}>다이어리 작성하기</StBtn>
+          <StBtn onClick={() => setOpen(true)}>다이어리 작성하기</StBtn>
         </StBtnBox>
         <StDiaryBox>
           <DiaryContent />
