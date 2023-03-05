@@ -1,21 +1,32 @@
 import styled from "styled-components";
 import { FlexCenter } from "../../../styles/css";
+import DiaryComment from "./DiaryComment";
+import DiaryCommentInput from "./DiaryCommentInput";
 
 const DiaryContent = () => {
   return (
-    <StDiary>
-      <StTitle>
-        <span>No.12</span>
-        <span>2020.20.20</span>
-      </StTitle>
-      <Stnaem>김싸이</Stnaem>
-      <StFlexBox>
-        <Stimg src="/cyworldmeta.jpeg" alt="다이어리사진" />
-        <p>
-          dfsjklsdklfdjkslfdsklfjdslfjsdklfjsdflsdfjsdlkfjklsfdjsdlfsdlkfjsdfklsdfjslkfjdslfsdjfldskfjsl
-        </p>
-      </StFlexBox>
-    </StDiary>
+    <>
+      <StDiary>
+        <StTitle>
+          <span>No.12</span>
+          <span>2020.20.20</span>
+        </StTitle>
+        <Stnaem>김싸이</Stnaem>
+        <StFlexBox>
+          <Stimg src="/cyworldmeta.jpeg" alt="다이어리사진" />
+          <p>
+            dfsjklsdklfdjkslfdsklfjdslfjsdklfjsdflsdfjsdlkfjklsfdjsdlfsdlkfjsdfklsdfjslkfjdslfsdjfldskfjsl
+          </p>
+        </StFlexBox>
+      </StDiary>
+      <StCommentFlex>
+        <DiaryCommentInput />
+        <DiaryComment />
+        <DiaryComment />
+        <DiaryComment />
+        <DiaryComment />
+      </StCommentFlex>
+    </>
   );
 };
 
@@ -38,7 +49,7 @@ const StTitle = styled.div`
 
 const Stnaem = styled.div`
   padding: 0.5rem;
-  color: navy;
+  color: #5b79c4;
   display: flex;
   justify-content: flex-end;
 `;
@@ -55,4 +66,11 @@ const StFlexBox = styled.div`
 
 const Stimg = styled.img`
   max-width: 20rem;
+`;
+
+const StCommentFlex = styled.div`
+  height: 100%;
+  padding: 1rem;
+  background-color: #f6f6f6;
+  width: 100%;
 `;

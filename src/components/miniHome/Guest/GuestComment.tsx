@@ -38,7 +38,7 @@ const GuestComment = ({ book }: IBook) => {
     },
   });
 
-  const rewriteBook = (guestbookId: number) => {
+  const onEditBook = (guestbookId: number) => {
     if (text.trim() === "") {
       alert("공백이 아닌 내용을 입력해주세요.");
     } else {
@@ -58,9 +58,7 @@ const GuestComment = ({ book }: IBook) => {
         {IsMyHome(book.myhomeId) || IsMyHome(book.userId) ? (
           <div>
             {isEdit ? (
-              <button onClick={() => rewriteBook(book.guestbookId)}>
-                완료
-              </button>
+              <button onClick={() => onEditBook(book.guestbookId)}>완료</button>
             ) : (
               <button onClick={() => setIsEdit(true)}>수정</button>
             )}
