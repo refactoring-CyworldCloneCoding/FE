@@ -4,12 +4,14 @@ import styled from "styled-components";
 import { GetDiary } from "../../../apis/diaryApi";
 import DiaryModal from "./DiaryModal";
 import DiaryContent from "./DiaryContent";
+import { TDiaryData } from "../../../types/diary";
 
 const Diary = () => {
   const [open, setOpen] = useState(false);
   const { homeId } = useParams();
   const { data } = GetDiary(homeId);
-  console.log(data);
+
+  const diaryDatas = data?.data;
 
   return (
     <>
@@ -19,9 +21,9 @@ const Diary = () => {
           <StBtn onClick={() => setOpen(true)}>다이어리 작성하기</StBtn>
         </StBtnBox>
         <StDiaryBox>
-          <DiaryContent />
-          <DiaryContent />
-          <DiaryContent />
+          {diaryDatas.map((diaryData: TDiaryData) => (
+            <DiaryContent key={diaryData?.diaryId} diaryData={diaryData} />
+          ))}
         </StDiaryBox>
       </StFlex>
     </>

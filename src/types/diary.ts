@@ -4,11 +4,17 @@ export interface IDiaryId {
 }
 
 export type TDiaryData = {
+  Comments: [];
   content: string;
-  dirImg: FileList;
+  createdAt: string;
+  diaryId: number;
+  diaryNo: number;
+  dirImg: string;
+  myhomeId: number;
+  updatedAt: string;
+  userId: number;
 };
 
 export interface IDiaryData {
-  homeId: string;
-  data: TDiaryData;
+  diaryData: TDiaryData;
 }

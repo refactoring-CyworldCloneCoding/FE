@@ -1,22 +1,26 @@
 import styled from "styled-components";
 import { FlexCenter } from "../../../styles/css";
+import { IDiaryData } from "../../../types/diary";
 import DiaryComment from "./DiaryComment";
 import DiaryCommentInput from "./DiaryCommentInput";
 
-const DiaryContent = () => {
+const DiaryContent = ({ diaryData }: IDiaryData) => {
   return (
     <>
       <StDiary>
         <StTitle>
-          <span>No.12</span>
-          <span>2020.20.20</span>
+          <span>No.{diaryData?.diaryNo}</span>
+          <span>{diaryData?.updatedAt}</span>
         </StTitle>
-        <Stnaem>김싸이</Stnaem>
+        <StBtnBox>
+          <span>수정</span>
+          <span>삭제</span>
+        </StBtnBox>
         <StFlexBox>
-          <Stimg src="/cyworldmeta.jpeg" alt="다이어리사진" />
-          <p>
-            dfsjklsdklfdjkslfdsklfjdslfjsdklfjsdflsdfjsdlkfjklsfdjsdlfsdlkfjsdfklsdfjslkfjdslfsdjfldskfjsl
-          </p>
+          {diaryData?.dirImg && (
+            <Stimg src={diaryData?.dirImg} alt="다이어리사진" />
+          )}
+          <p>{diaryData?.content}</p>
         </StFlexBox>
       </StDiary>
       <StCommentFlex>
@@ -47,11 +51,16 @@ const StTitle = styled.div`
   border: 0.1rem solid gray;
 `;
 
-const Stnaem = styled.div`
+const StBtnBox = styled.div`
   padding: 0.5rem;
-  color: #5b79c4;
+  font-size: 0.8rem;
+  color: #565656;
   display: flex;
   justify-content: flex-end;
+  span {
+    cursor: pointer;
+    margin: 0 0.3rem;
+  }
 `;
 
 const StFlexBox = styled.div`
