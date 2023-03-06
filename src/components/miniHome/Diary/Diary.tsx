@@ -21,7 +21,7 @@ const Diary = () => {
           <StBtn onClick={() => setOpen(true)}>다이어리 작성하기</StBtn>
         </StBtnBox>
         <StDiaryBox>
-          {diaryDatas.map((diaryData: TDiaryData) => (
+          {diaryDatas?.map((diaryData: TDiaryData) => (
             <DiaryContent key={diaryData?.diaryId} diaryData={diaryData} />
           ))}
         </StDiaryBox>

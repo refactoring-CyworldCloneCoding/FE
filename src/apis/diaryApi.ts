@@ -21,6 +21,12 @@ export const PostDiary = async (payload: IPayload) => {
   await instance.post(`/diaries/${payload.homeId}`, payload.data);
 };
 
+/** 다이어리 수정 */
+export const EditDiary = async (payload: IPayload) => {
+  console.log(payload);
+  await instance.put(`/diaries/${payload.id}`, payload.data);
+};
+
 /** 댓글 조회 */
 export const GetComment = (id: IDiaryId) => {
   return useQuery(

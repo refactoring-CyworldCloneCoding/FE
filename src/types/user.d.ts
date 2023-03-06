@@ -47,5 +47,5 @@ interface IHome {
 interface IPayload {
   data?: TBests;
   id?: number;
-  homeId: string | undefined;
+  homeId?: string | undefined;
 }
