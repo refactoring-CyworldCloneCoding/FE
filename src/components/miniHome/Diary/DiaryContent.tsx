@@ -55,14 +55,17 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
           <span>{diaryData?.updatedAt}</span>
         </StTitle>
         <form onSubmit={handleSubmit(onEditDiary)}>
-          <StBtnBox>
-            {isEdit ? (
+          {isEdit ? (
+            <StBtnBox>
               <button>완료</button>
-            ) : (
+              <span onClick={() => setIsEdit(false)}>취소</span>
+            </StBtnBox>
+          ) : (
+            <StBtnBox>
               <span onClick={() => setIsEdit(true)}>수정</span>
-            )}
-            <span>삭제</span>
-          </StBtnBox>
+              <span>삭제</span>
+            </StBtnBox>
+          )}
           <StFlexBox>
             {imagePreview && <Stimg src={imagePreview} alt="다이어리사진" />}
             {isEdit ? (

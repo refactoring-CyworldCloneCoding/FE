@@ -23,8 +23,12 @@ export const PostDiary = async (payload: IPayload) => {
 
 /** 다이어리 수정 */
 export const EditDiary = async (payload: IPayload) => {
-  console.log(payload);
   await instance.put(`/diaries/${payload.id}`, payload.data);
+};
+
+/** 다이어리 삭제 */
+export const DeleteDiary = async (payload: IPayload) => {
+  await instance.put(`/diaries/${payload.id}`);
 };
 
 /** 댓글 조회 */
