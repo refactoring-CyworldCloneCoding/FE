@@ -1,16 +1,33 @@
 import { useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
-import { DeleteComment } from "../../../apis/diaryApi";
+import { DeleteComment, EditComment } from "../../../apis/diaryApi";
 import { IComment } from "../../../types/diary";
 
 const DiaryComment = ({ commentData }: IComment) => {
   const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
+  const { register, handleSubmit } = useForm();
+
+  const editComment = useMutation(EditComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDiary");
+      alert("댓글이 수정되었습니다.");
+    },
+    onError: (err: any) => {
+      alert(err.response?.data.msg);
+    },
+  });
 
   /**댓글 수정 */
-  const onEditComment = () => {
-    setIsEdit(false);
+  const onEditComment = (data: FieldValues) => {
+    if (data.comment.trim() === "") {
+      alert("내용을 작성해주세요.");
+    } else {
+      editComment.mutate({ id: commentData?.commentId, data });
+      setIsEdit(false);
+    }
   };
 
   /**댓글 삭제 */
@@ -27,7 +44,13 @@ const DiaryComment = ({ commentData }: IComment) => {
   return (
     <StBox>
       {isEdit ? (
-        <StEditInput defaultValue={commentData.comment} />
+        <form onSubmit={handleSubmit(onEditComment)} id="commentForm">
+          <StEditInput
+            maxLength={80}
+            defaultValue={commentData.comment}
+            {...register("comment")}
+          />
+        </form>
       ) : (
         <span>
           <StName>{commentData.name} : </StName>
@@ -38,7 +61,9 @@ const DiaryComment = ({ commentData }: IComment) => {
       <span>
         {isEdit ? (
           <span>
-            <StBtn onClick={() => onEditComment()}>완료</StBtn>
+            <button type="submit" form="commentForm">
+              완료
+            </button>
             <StBtn onClick={() => setIsEdit(false)}>취소</StBtn>
           </span>
         ) : (
@@ -67,6 +92,13 @@ const StBox = styled.div`
   p {
     word-break: break-all;
     line-height: 115%;
+  }
+  button {
+    margin-left: 0.5rem;
+    font-size: 0.5rem;
+    color: #575757;
+    border: none;
+    background: none;
   }
 `;
 
