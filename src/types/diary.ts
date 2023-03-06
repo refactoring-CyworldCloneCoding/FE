@@ -1,6 +1,6 @@
 export interface IDiaryId {
-  homeId: string;
-  diaryId: string;
+  homeId: string | number;
+  diaryId?: string;
 }
 
 export type TDiaryData = {

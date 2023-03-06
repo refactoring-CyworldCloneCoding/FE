@@ -107,7 +107,7 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
         </form>
       </StDiary>
       <StCommentFlex>
-        <DiaryCommentInput />
+        <DiaryCommentInput diaryData={diaryData} />
         <DiaryComment />
       </StCommentFlex>
     </>

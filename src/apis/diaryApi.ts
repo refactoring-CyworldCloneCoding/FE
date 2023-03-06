@@ -18,6 +18,7 @@ export const GetDiary = (homeId: THome) => {
 
 /** 다이어리 작성 */
 export const PostDiary = async (payload: IPayload) => {
+  console.log(payload);
   await instance.post(`/diaries/${payload.homeId}`, payload.data);
 };
 
