@@ -27,6 +27,5 @@ export const DeleteBests = async (payload: IPayload) => {
 
 /** 일촌평 수정 */
 export const EditBests = async (payload: any) => {
-  console.log(payload);
   // await instance.put(`/bests/${}/${}`);
 };
