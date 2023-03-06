@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { IComment } from "../../../types/diary";
 
-const DiaryComment = () => {
+const DiaryComment = ({ commentData }: IComment) => {
   const [isEdit, setIsEdit] = useState(false);
 
   /**댓글 수정 */
@@ -14,21 +15,26 @@ const DiaryComment = () => {
   return (
     <StBox>
       {isEdit ? (
-        <StEditInput defaultValue={"어쩔"} />
+        <StEditInput defaultValue={commentData.comment} />
       ) : (
         <span>
-          <StName>김싸이 : </StName>
-          안녕하세요안녕하세요안녕하안녕세요안녕하세요안녕하세요 안녕하세요
-          <StDate>(2020-2020-2020)</StDate>
+          <StName>{commentData.name} : </StName>
+          {commentData.comment}
+          <StDate>({commentData.updatedAt})</StDate>
         </span>
       )}
       <span>
         {isEdit ? (
-          <StBtn onClick={() => onEditComment()}>완료</StBtn>
+          <span>
+            <StBtn onClick={() => onEditComment()}>완료</StBtn>
+            <StBtn onClick={() => setIsEdit(false)}>취소</StBtn>
+          </span>
         ) : (
-          <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
+          <span>
+            <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
+            <StBtn>삭제</StBtn>
+          </span>
         )}
-        <StBtn>삭제</StBtn>
       </span>
     </StBox>
   );

@@ -1,6 +1,6 @@
 export interface IDiaryId {
   homeId: string | number;
-  diaryId?: string;
+  diaryId?: number;
 }
 
 export type TDiaryData = {
@@ -17,4 +17,21 @@ export type TDiaryData = {
 
 export interface IDiaryData {
   diaryData: TDiaryData;
+}
+
+/**댓글 */
+
+export type TComment = {
+  comment: string;
+  commentId: number;
+  createdAt: string;
+  diaryId: number;
+  myhomeId: number;
+  name: string;
+  updatedAt: string;
+  userId: number;
+};
+
+export interface IComment {
+  commentData: TComment;
 }

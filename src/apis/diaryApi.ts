@@ -32,21 +32,21 @@ export const DeleteDiary = async (payload: IPayload) => {
   await instance.delete(`/diaries/${payload.id}`);
 };
 
-/** 댓글 조회 */
-export const GetComment = (id: IDiaryId) => {
-  return useQuery(
-    ["getComment"],
-    async () => {
-      const { data } = await instance.get(
-        `/comments/${id.homeId}/${id.diaryId}`
-      );
-      return data;
-    },
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
-};
+// /** 댓글 조회 */
+// export const GetComment = (id: IDiaryId) => {
+//   return useQuery(
+//     ["getComment"],
+//     async () => {
+//       const { data } = await instance.get(
+//         `/comments/${id.homeId}/${id.diaryId}`
+//       );
+//       return data;
+//     },
+//     {
+//       // refetchOnWindowFocus: false,
+//     }
+//   );
+// };
 
 /** 댓글 작성 */
 export const PostComment = async (payload: IPayload) => {

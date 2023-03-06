@@ -11,7 +11,7 @@ const Diary = () => {
   const { homeId } = useParams();
   const { data } = GetDiary(homeId);
 
-  const diaryDatas = data?.data;
+  const diarysData = data?.data;
 
   return (
     <>
@@ -21,7 +21,7 @@ const Diary = () => {
           <StBtn onClick={() => setOpen(true)}>다이어리 작성하기</StBtn>
         </StBtnBox>
         <StDiaryBox>
-          {diaryDatas?.map((diaryData: TDiaryData) => (
+          {diarysData?.map((diaryData: TDiaryData) => (
             <DiaryContent key={diaryData?.diaryId} diaryData={diaryData} />
           ))}
         </StDiaryBox>

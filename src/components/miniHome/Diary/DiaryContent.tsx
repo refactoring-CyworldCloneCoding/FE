@@ -10,6 +10,7 @@ import DiaryCommentInput from "./DiaryCommentInput";
 
 const DiaryContent = ({ diaryData }: IDiaryData) => {
   const queryClient = useQueryClient();
+  const commentsData = diaryData?.Comments;
   const [isEdit, setIsEdit] = useState(false);
   const { register, handleSubmit, watch } = useForm();
 
@@ -108,7 +109,9 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
       </StDiary>
       <StCommentFlex>
         <DiaryCommentInput diaryData={diaryData} />
-        <DiaryComment />
+        {commentsData?.map((commentData) => (
+          <DiaryComment commentData={commentData} />
+        ))}
       </StCommentFlex>
     </>
   );
