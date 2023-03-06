@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
+import { DeleteComment } from "../../../apis/diaryApi";
 import { IComment } from "../../../types/diary";
 
 const DiaryComment = ({ commentData }: IComment) => {
+  const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
 
   /**댓글 수정 */
@@ -11,6 +14,15 @@ const DiaryComment = ({ commentData }: IComment) => {
   };
 
   /**댓글 삭제 */
+  const deleteComment = useMutation(DeleteComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDiary");
+      alert("댓글이 삭제되었습니다.");
+    },
+    onError: (err: any) => {
+      alert(err.response?.data.msg);
+    },
+  });
 
   return (
     <StBox>
@@ -32,7 +44,13 @@ const DiaryComment = ({ commentData }: IComment) => {
         ) : (
           <span>
             <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
-            <StBtn>삭제</StBtn>
+            <StBtn
+              onClick={() =>
+                deleteComment.mutate({ id: commentData?.commentId })
+              }
+            >
+              삭제
+            </StBtn>
           </span>
         )}
       </span>
