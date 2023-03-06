@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
-import { EditDiary } from "../../../apis/diaryApi";
+import { DeleteDiary, EditDiary } from "../../../apis/diaryApi";
 import { FlexCenter } from "../../../styles/css";
 import { IDiaryData } from "../../../types/diary";
 import DiaryComment from "./DiaryComment";
@@ -17,6 +17,7 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
 
   const image = watch("dirImg");
 
+  /**다이어리 수정 */
   const editDiary = useMutation(EditDiary, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDiary");
@@ -39,6 +40,17 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
       setIsEdit(false);
     }
   };
+
+  /**다이어리 삭제 */
+  const deleteDiary = useMutation(DeleteDiary, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDiary");
+      alert("다이어리가 삭제되었습니다.");
+    },
+    onError: (err: any) => {
+      alert(err.response?.data.msg);
+    },
+  });
 
   useEffect(() => {
     if (image && image.length > 0) {
@@ -63,7 +75,11 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
           ) : (
             <StBtnBox>
               <span onClick={() => setIsEdit(true)}>수정</span>
-              <span>삭제</span>
+              <span
+                onClick={() => deleteDiary.mutate({ id: diaryData?.diaryId })}
+              >
+                삭제
+              </span>
             </StBtnBox>
           )}
           <StFlexBox>
