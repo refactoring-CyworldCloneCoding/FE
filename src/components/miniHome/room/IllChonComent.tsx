@@ -67,13 +67,11 @@ const IllChonComent = ({ best }: IBest) => {
           <StName>{best?.name}</StName>)
         </p>
       )}
-      {IsMyHome(best.myhomeId) || IsMyHome(best.userId) ? (
+      {IsMyHome({ homeId: best?.myhomeId, anyId: best?.userId }) && (
         <>
           {isEdit ? (
             <div>
-              <button form="illchon" onClick={() => setIsEdit(true)}>
-                완료
-              </button>
+              <button form="illchon">완료</button>
               <StBtn onClick={() => setIsEdit(false)}>취소</StBtn>
             </div>
           ) : (
@@ -92,7 +90,7 @@ const IllChonComent = ({ best }: IBest) => {
             </div>
           )}
         </>
-      ) : null}
+      )}
     </StFlex>
   );
 };

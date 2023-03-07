@@ -55,7 +55,7 @@ const GuestComment = ({ book }: IBook) => {
           <span onClick={() => getMinihome(book?.userId)}>{book?.name} 🏠</span>
           ({book?.updatedAt})
         </p>
-        {IsMyHome(book.myhomeId) || IsMyHome(book.userId) ? (
+        {IsMyHome({ homeId: book?.myhomeId, anyId: book?.userId }) && (
           <>
             {isEdit ? (
               <div>
@@ -73,7 +73,7 @@ const GuestComment = ({ book }: IBook) => {
               </div>
             )}
           </>
-        ) : null}
+        )}
       </StTitle>
       <StBookDiv>
         <StMinimi src={getBookMinimi(book?.bookImage)} alt="미니미" />

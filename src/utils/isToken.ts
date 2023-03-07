@@ -16,8 +16,13 @@ export const deleteToken = () => {
 //나의 홈키와 비교
 // param 값과 내 키값이 같거나
 // id 값과 내 키 값이 같거나
-const myHomeId = sessionStorage.getItem("userId");
+const userId = sessionStorage.getItem("userId");
 
-export const IsMyHome = (id: string | number | undefined) => {
-  return myHomeId === `${id}`;
+export type TId = {
+  homeId: number | string | undefined;
+  anyId?: number | undefined;
+};
+
+export const IsMyHome = (id: TId) => {
+  return userId === `${id.homeId}` || userId === `${id.anyId}`;
 };

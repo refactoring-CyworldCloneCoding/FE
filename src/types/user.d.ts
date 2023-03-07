@@ -32,12 +32,6 @@ interface IInfo {
   };
 }
 
-/**인트로 수정 */
-interface IIntro {
-  intro: string;
-  param: string | undefined;
-}
-
 /**미니홈피 정보 */
 interface IHome {
   homeId: string | undefined;

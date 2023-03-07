@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -11,12 +12,12 @@ import { IsMyHome } from "../../utils/isToken";
 const Profile = ({ userInfo }: IInfo) => {
   const queryClient = useQueryClient();
   const userData = userInfo?.User;
-  const { param } = useParams();
+  const { homeId } = useParams();
   const [editIntro, setEditIntro] = useState(false);
-  const [text, setText] = useState(userInfo?.intro);
+  const { register, handleSubmit } = useForm();
 
-  const onEidtIntro = () => {
-    putIntro.mutate({ intro: text, param });
+  const onEidtIntro = (data: FieldValues) => {
+    putIntro.mutate({ data, homeId });
     setEditIntro(false);
   };
 
@@ -31,10 +32,6 @@ const Profile = ({ userInfo }: IInfo) => {
     },
   });
 
-  const onChangeText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
-  };
-
   return (
     <StPageBox>
       <StToday>
@@ -47,28 +44,35 @@ const Profile = ({ userInfo }: IInfo) => {
         <StProfileImage src="http://res.heraldm.com/content/image/2021/07/16/20210716000671_0.jpg" />
         <StIntro>
           {editIntro ? (
-            <textarea
-              maxLength={45}
-              placeholder="45자이내로 작성하기."
-              defaultValue={userInfo?.intro}
-              onChange={onChangeText}
-            />
+            <form id="introText" onSubmit={handleSubmit(onEidtIntro)}>
+              <textarea
+                {...register("intro")}
+                maxLength={45}
+                placeholder="45자이내로 작성하기."
+                defaultValue={userInfo?.intro}
+              />
+            </form>
           ) : (
             userInfo?.intro
           )}
         </StIntro>
-        <StHistory>
-          히스토리
-          {IsMyHome(param) && (
-            <>
-              {editIntro ? (
-                <span onClick={onEidtIntro}>수정 완료</span>
-              ) : (
-                <span onClick={() => setEditIntro(true)}>소개글 수정</span>
-              )}
-            </>
-          )}
-        </StHistory>
+        <StFlex>
+          <StHistory>히스토리</StHistory>
+          <StBtnBox>
+            {IsMyHome({ homeId: userData?.userId }) && (
+              <>
+                {editIntro ? (
+                  <>
+                    <button form="introText">수정 완료</button>
+                    <span onClick={() => setEditIntro(false)}>취소</span>
+                  </>
+                ) : (
+                  <span onClick={() => setEditIntro(true)}>소개글 수정</span>
+                )}
+              </>
+            )}
+          </StBtnBox>
+        </StFlex>
         <StPado onClick={getRamdomMinihome}>파도타기</StPado>
         <StUserinfo>
           {userData?.name}({getgenderCon(userData?.gender)})
@@ -155,19 +159,33 @@ const StIntro = styled.div`
 `;
 
 const StHistory = styled.div`
-  width: 85%;
   padding: 0.4rem;
-  border-bottom: 0.1rem solid #cdd5d8;
   font-size: 0.8rem;
   font-weight: 700;
   color: #1ea7cc;
+`;
+
+const StBtnBox = styled.div`
+  font-weight: 500;
+  font-size: 0.6rem;
   span {
     cursor: pointer;
-    margin-left: 3.5rem;
-    font-weight: 500;
-    font-size: 0.6rem;
     color: #000000;
   }
+  button {
+    font-weight: 500;
+    font-size: 0.6rem;
+    background: none;
+    border: none;
+  }
+`;
+
+const StFlex = styled.div`
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.1rem solid #cdd5d8;
 `;
 
 const StPado = styled.div`
