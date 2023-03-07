@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import { IDiaryId } from "../types/diary";
 import { instance } from "./axios";
 
 /** 다이어리 조회 */
