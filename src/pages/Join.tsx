@@ -9,17 +9,10 @@ const Join = () => {
   const [isLogin, setIsLogin] = useState(false);
   const nav = useNavigate();
 
-  const goBack = () => {
-    nav("/");
-  };
-
   useEffect(() => {
     setIsLogin(isToken());
-  }, [isLogin]);
-
-  useEffect(() => {
-    goBack();
-  }, [isLogin]);
+    nav("/");
+  }, [isLogin, nav]);
 
   return (
     <StJoin>
