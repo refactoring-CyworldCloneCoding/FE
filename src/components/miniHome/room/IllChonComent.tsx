@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { DeleteBests, EditBests, GetBests } from "../../../apis/illChonApi";
+import { DeleteBests, EditBests } from "../../../apis/illChonApi";
 import { IBest } from "../../../types/illchon";
 import { IsMyHome } from "../../../utils/isToken";
 
