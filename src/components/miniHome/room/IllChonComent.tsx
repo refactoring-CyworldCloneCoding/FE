@@ -41,7 +41,7 @@ const IllChonComent = ({ best }: IBest) => {
   };
 
   return (
-    <StFlex key={best.ilchonpyungId}>
+    <StFlex>
       {isEdit ? (
         <form id="illchon" onSubmit={handleSubmit(onEditBest)}>
           <input

@@ -1,14 +1,36 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { isToken } from "../utils/isToken";
 import SignUp from "../components/join/SignUp";
 import { MainBg } from "../styles/css";
+import { useNavigate } from "react-router-dom";
 
 const Join = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const nav = useNavigate();
+
+  const goBack = () => {
+    nav("/");
+  };
+
+  useEffect(() => {
+    setIsLogin(isToken());
+  }, [isLogin]);
+
+  useEffect(() => {
+    goBack();
+  }, [isLogin]);
+
   return (
     <StJoin>
-      <StBox>
-        <StText>회원가입</StText>
-        <SignUp />
-      </StBox>
+      {isLogin ? (
+        <div>로그인 유저는 접근할 수 없는 페이지 입니다.</div>
+      ) : (
+        <StBox>
+          <StText>회원가입</StText>
+          <SignUp />
+        </StBox>
+      )}
     </StJoin>
   );
 };
