@@ -10,7 +10,7 @@ const IllchonInput = () => {
   const { register, handleSubmit, reset } = useForm();
   const { homeId } = useParams();
 
-  const postBests = useMutation(PostBests, {
+  const postBest = useMutation(PostBests, {
     onSuccess: () => {
       queryClient.invalidateQueries("getBests");
     },
@@ -19,17 +19,17 @@ const IllchonInput = () => {
     },
   });
 
-  const wirteBests = (data: FieldValues) => {
+  const onPostBest = (data: FieldValues) => {
     if (data?.nick.trim() === "" || data?.ilchonpyung.trim() === "") {
       alert("공백 없이 작성해주세요");
     } else {
-      postBests.mutate({ data, homeId });
+      postBest.mutate({ data, homeId });
       reset();
     }
   };
 
   return (
-    <StIllchon as="form" onSubmit={handleSubmit(wirteBests)}>
+    <StIllchon as="form" onSubmit={handleSubmit(onPostBest)}>
       <p>일촌평</p>
       <input
         className="nick"
@@ -62,9 +62,6 @@ const StIllchon = styled.form`
   input {
     margin-left: 0.5rem;
     border: 1px solid #dedddd;
-    &:focus {
-      outline: none;
-    }
   }
   p {
     font-weight: 700;

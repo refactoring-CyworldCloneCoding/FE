@@ -1,10 +1,18 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { GetBests } from "../../../apis/illChonApi";
 import { FlexCenter } from "../../../styles/css";
+import { TBest } from "../../../types/illchon";
 import { getAvt, getMiniroom, Tgender } from "../../../utils/getItem";
 import IllChonComent from "./IllChonComent";
 import IllchonInput from "./IllchonInput";
 
 const Room = ({ userData }: IUSerData) => {
+  const { homeId } = useParams();
+  const { data } = GetBests(homeId);
+
+  const bests = data?.data;
+
   return (
     <StRoomBox>
       <StTitle>
@@ -13,7 +21,11 @@ const Room = ({ userData }: IUSerData) => {
       <StRoom src={getMiniroom(userData?.gender as Tgender)} alt="미니룸" />
       <StAvt src={getAvt(userData?.gender as Tgender)} alt="미니미" />
       <IllchonInput />
-      <IllChonComent />
+      <StIllChonBox>
+        {bests?.map((best: TBest) => (
+          <IllChonComent key={best.ilchonpyungId} best={best} />
+        ))}
+      </StIllChonBox>
     </StRoomBox>
   );
 };
@@ -41,4 +53,13 @@ const StAvt = styled.img`
   width: 2.5rem;
   position: absolute;
   top: 22rem;
+`;
+
+const StIllChonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: #6c6c6c;
+  overflow: auto;
+  width: 100%;
+  height: 6rem;
 `;

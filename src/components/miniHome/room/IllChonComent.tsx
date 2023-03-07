@@ -1,14 +1,16 @@
+import { useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { DeleteBests, GetBests } from "../../../apis/illChonApi";
+import { DeleteBests, EditBests, GetBests } from "../../../apis/illChonApi";
 import { IBest } from "../../../types/illchon";
 import { IsMyHome } from "../../../utils/isToken";
 
-const IllChonComent = () => {
+const IllChonComent = ({ best }: IBest) => {
   const queryClient = useQueryClient();
-  const { homeId } = useParams();
-  const { data } = GetBests(homeId);
+  const { register, handleSubmit } = useForm();
+  const [isEdit, setIsEdit] = useState(false);
 
   const deleteBest = useMutation(DeleteBests, {
     onSuccess: () => {
@@ -20,50 +22,98 @@ const IllChonComent = () => {
     },
   });
 
+  const editBest = useMutation(EditBests, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getBests");
+      alert("일촌평이 수정되었습니다.");
+    },
+    onError: (err: any) => {
+      alert(err.response?.data.msg);
+    },
+  });
+
+  const onEditBest = (data: FieldValues) => {
+    if (data?.nick.trim() === "" || data?.ilchonpyung.trim() === "") {
+      alert("공백 없이 작성해주세요");
+    } else {
+      editBest.mutate({ id: best.ilchonpyungId, homeId: best?.myhomeId, data });
+      setIsEdit(false);
+    }
+  };
+
   return (
-    <>
-      <StIllChonBox>
-        {data?.data.map((best: IBest) => (
-          <StFlex key={best.ilchonpyungId}>
-            <p>
-              · {best?.ilchonpyung} ({best?.nick} <span>{best?.name}</span>)
-            </p>
-            {IsMyHome(best.myhomeId) || IsMyHome(best.userId) ? (
+    <StFlex key={best.ilchonpyungId}>
+      {isEdit ? (
+        <form id="illchon" onSubmit={handleSubmit(onEditBest)}>
+          <input
+            className="nick"
+            type="text"
+            placeholder="일촌명"
+            maxLength={10}
+            defaultValue={best?.nick}
+            {...register("nick")}
+          />
+          <input
+            type="text"
+            placeholder="일촌과 나누고 싶은 이야기를 나눠보세요~!"
+            className="comment"
+            maxLength={30}
+            defaultValue={best?.ilchonpyung}
+            {...register("ilchonpyung")}
+          />
+        </form>
+      ) : (
+        <p>
+          · {best?.ilchonpyung} (<StNick>{best?.nick}</StNick>
+          <StName>{best?.name}</StName>)
+        </p>
+      )}
+      {IsMyHome(best.myhomeId) || IsMyHome(best.userId) ? (
+        <>
+          {isEdit ? (
+            <div>
+              <button form="illchon" onClick={() => setIsEdit(true)}>
+                완료
+              </button>
+              <StBtn onClick={() => setIsEdit(false)}>취소</StBtn>
+            </div>
+          ) : (
+            <div>
+              <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
               <StBtn
                 onClick={() =>
-                  deleteBest.mutate({ id: best.ilchonpyungId, homeId })
+                  deleteBest.mutate({
+                    id: best.ilchonpyungId,
+                    homeId: best?.myhomeId,
+                  })
                 }
               >
-                x
+                삭제
               </StBtn>
-            ) : null}
-          </StFlex>
-        ))}
-      </StIllChonBox>
-    </>
+            </div>
+          )}
+        </>
+      ) : null}
+    </StFlex>
   );
 };
 
 export default IllChonComent;
 
-const StIllChonBox = styled.div`
-  display: flex;
-  flex-direction: column;
+const StBtn = styled.span`
+  font-size: 0.8rem;
   color: #6c6c6c;
-  overflow: auto;
-  width: 100%;
-  height: 6rem;
-
-  span {
-    font-weight: 600;
-    color: #1ea7cc;
-  }
+  margin: 0 0.2rem;
 `;
 
-const StBtn = styled.button`
-  border: none;
-  font-size: 0.8rem;
-  background-color: white;
+const StName = styled.span`
+  font-weight: 600;
+  color: #1ea7cc;
+`;
+
+const StNick = styled.span`
+  margin-right: 0.3rem;
+  color: #949494;
 `;
 
 const StFlex = styled.div`
@@ -72,5 +122,24 @@ const StFlex = styled.div`
   justify-content: space-between;
   p {
     word-break: break-all;
+  }
+
+  input {
+    margin-left: 0.5rem;
+    border: 1px solid #dedddd;
+  }
+
+  button {
+    border: none;
+    font-size: 0.8rem;
+    color: #6c6c6c;
+    background: none;
+  }
+
+  & .nick {
+    width: 4rem;
+  }
+  & .comment {
+    width: 24rem;
   }
 `;

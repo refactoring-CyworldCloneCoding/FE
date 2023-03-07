@@ -3,7 +3,7 @@ export type TBests = {
   nick?: string;
 };
 
-export interface IBest {
+export type TBest = {
   createdAt: number;
   ilchonpyung: string;
   ilchonpyungId: number;
@@ -12,4 +12,8 @@ export interface IBest {
   nick: string;
   updatedAt: number;
   userId: number;
+};
+
+export interface IBest {
+  best: TBest;
 }
