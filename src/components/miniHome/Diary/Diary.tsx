@@ -5,6 +5,7 @@ import { GetDiary } from "../../../apis/diaryApi";
 import DiaryModal from "./DiaryModal";
 import DiaryContent from "./DiaryContent";
 import { TDiaryData } from "../../../types/diary";
+import { IsMy } from "../../../utils/isToken";
 
 const Diary = () => {
   const [open, setOpen] = useState(false);
@@ -17,9 +18,11 @@ const Diary = () => {
     <>
       {open && <DiaryModal homeId={homeId} setOpen={setOpen} />}
       <StFlex>
-        <StBtnBox>
-          <StBtn onClick={() => setOpen(true)}>다이어리 작성하기</StBtn>
-        </StBtnBox>
+        {IsMy({ homeId }) && (
+          <StBtnBox>
+            <StBtn onClick={() => setOpen(true)}>다이어리 작성하기</StBtn>
+          </StBtnBox>
+        )}
         <StDiaryBox>
           {diarysData?.map((diaryData: TDiaryData) => (
             <DiaryContent key={diaryData?.diaryId} diaryData={diaryData} />

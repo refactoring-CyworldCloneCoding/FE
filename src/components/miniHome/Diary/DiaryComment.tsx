@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { DeleteComment, EditComment } from "../../../apis/diaryApi";
 import { IComment } from "../../../types/diary";
+import { IsMy, IsOur } from "../../../utils/isToken";
 
 const DiaryComment = ({ commentData }: IComment) => {
   const queryClient = useQueryClient();
@@ -58,27 +59,36 @@ const DiaryComment = ({ commentData }: IComment) => {
           <StDate>({commentData.updatedAt})</StDate>
         </span>
       )}
-      <span>
-        {isEdit ? (
+      <>
+        {IsOur({
+          homeId: commentData?.myhomeId,
+          anyId: commentData?.userId,
+        }) && (
           <span>
-            <button type="submit" form="commentForm">
-              완료
-            </button>
-            <StBtn onClick={() => setIsEdit(false)}>취소</StBtn>
-          </span>
-        ) : (
-          <span>
-            <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
-            <StBtn
-              onClick={() =>
-                deleteComment.mutate({ id: commentData?.commentId })
-              }
-            >
-              삭제
-            </StBtn>
+            {isEdit ? (
+              <span>
+                <button type="submit" form="commentForm">
+                  완료
+                </button>
+                <StBtn onClick={() => setIsEdit(false)}>취소</StBtn>
+              </span>
+            ) : (
+              <span>
+                {IsMy({ homeId: commentData?.userId }) && (
+                  <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
+                )}
+                <StBtn
+                  onClick={() =>
+                    deleteComment.mutate({ id: commentData?.commentId })
+                  }
+                >
+                  삭제
+                </StBtn>
+              </span>
+            )}
           </span>
         )}
-      </span>
+      </>
     </StBox>
   );
 };

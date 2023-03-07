@@ -13,11 +13,20 @@ export const deleteToken = () => {
 };
 
 /**작성자 여부 판단 */
-//나의 홈키와 비교
-// param 값과 내 키값이 같거나
-// id 값과 내 키 값이 같거나
-const myHomeId = sessionStorage.getItem("userId");
+//나의 유저키와 비교
+const userId = sessionStorage.getItem("userId");
 
-export const IsMyHome = (id: string | number | undefined) => {
-  return myHomeId === `${id}`;
+export interface IId {
+  homeId: number | string | undefined;
+  anyId?: number | undefined;
+}
+
+/**작성자와 홈피주인 판단 */
+export const IsOur = (id: IId) => {
+  return userId === `${id.homeId}` || userId === `${id.anyId}`;
+};
+
+/**홈피 주인만 판단 */
+export const IsMy = (id: IId) => {
+  return userId === `${id.homeId}`;
 };

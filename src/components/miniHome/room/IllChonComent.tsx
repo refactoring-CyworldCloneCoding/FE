@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { DeleteBests, EditBests } from "../../../apis/illChonApi";
 import { IBest } from "../../../types/illchon";
-import { IsMyHome } from "../../../utils/isToken";
+import { IsMy, IsOur } from "../../../utils/isToken";
 
 const IllChonComent = ({ best }: IBest) => {
   const queryClient = useQueryClient();
@@ -41,7 +41,7 @@ const IllChonComent = ({ best }: IBest) => {
   };
 
   return (
-    <StFlex key={best.ilchonpyungId}>
+    <StFlex>
       {isEdit ? (
         <form id="illchon" onSubmit={handleSubmit(onEditBest)}>
           <input
@@ -67,18 +67,18 @@ const IllChonComent = ({ best }: IBest) => {
           <StName>{best?.name}</StName>)
         </p>
       )}
-      {IsMyHome(best.myhomeId) || IsMyHome(best.userId) ? (
+      {IsOur({ homeId: best?.myhomeId, anyId: best?.userId }) && (
         <>
           {isEdit ? (
             <div>
-              <button form="illchon" onClick={() => setIsEdit(true)}>
-                완료
-              </button>
+              <button form="illchon">완료</button>
               <StBtn onClick={() => setIsEdit(false)}>취소</StBtn>
             </div>
           ) : (
             <div>
-              <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
+              {IsMy({ homeId: best?.userId }) && (
+                <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
+              )}
               <StBtn
                 onClick={() =>
                   deleteBest.mutate({
@@ -92,7 +92,7 @@ const IllChonComent = ({ best }: IBest) => {
             </div>
           )}
         </>
-      ) : null}
+      )}
     </StFlex>
   );
 };

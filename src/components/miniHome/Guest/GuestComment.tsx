@@ -5,7 +5,7 @@ import { DeleteBook, EditBook } from "../../../apis/guestApi";
 import { IBook } from "../../../types/guestBook";
 import { getBookMinimi } from "../../../utils/getItem";
 import { getMinihome } from "../../../utils/getMinihome";
-import { IsMyHome } from "../../../utils/isToken";
+import { IsMy, IsOur } from "../../../utils/isToken";
 
 const GuestComment = ({ book }: IBook) => {
   const queryClient = useQueryClient();
@@ -55,7 +55,7 @@ const GuestComment = ({ book }: IBook) => {
           <span onClick={() => getMinihome(book?.userId)}>{book?.name} 🏠</span>
           ({book?.updatedAt})
         </p>
-        {IsMyHome(book.myhomeId) || IsMyHome(book.userId) ? (
+        {IsOur({ homeId: book?.myhomeId, anyId: book?.userId }) && (
           <>
             {isEdit ? (
               <div>
@@ -66,14 +66,16 @@ const GuestComment = ({ book }: IBook) => {
               </div>
             ) : (
               <div>
-                <button onClick={() => setIsEdit(true)}>수정</button>
+                {IsMy({ homeId: book?.userId }) && (
+                  <button onClick={() => setIsEdit(true)}>수정</button>
+                )}
                 <button onClick={() => deleteBook.mutate(book.guestbookId)}>
                   삭제
                 </button>
               </div>
             )}
           </>
-        ) : null}
+        )}
       </StTitle>
       <StBookDiv>
         <StMinimi src={getBookMinimi(book?.bookImage)} alt="미니미" />
