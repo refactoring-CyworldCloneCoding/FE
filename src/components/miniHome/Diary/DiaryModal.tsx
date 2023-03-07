@@ -1,12 +1,35 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
-import { FlexCenter } from "../styles/css";
+import { PostDiary } from "../../../apis/diaryApi";
+import { FlexCenter } from "../../../styles/css";
 
-const Modal = ({ setOpen }: Istate) => {
+const DiaryModal = ({ setOpen, homeId }: Istate) => {
+  const queryClient = useQueryClient();
   const { register, handleSubmit, watch } = useForm();
 
-  const onSubmit = () => {};
+  const postDiary = useMutation(PostDiary, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDiary");
+    },
+    onError: (err: any) => {
+      alert(err.response?.data.msg);
+    },
+  });
+
+  const onPostDiary = (data: FieldValues) => {
+    if (data.content.trim() === "") {
+      alert("내용을 작성해주세요.");
+    } else {
+      const dirImg = data.dirImg[0];
+      const formData = new FormData();
+      formData.append("dirImg", dirImg);
+      formData.append("content", data.content);
+      postDiary.mutate({ data: formData, homeId });
+      setOpen(false);
+    }
+  };
 
   const [imagePreview, setImagePreview] = useState("");
 
@@ -20,22 +43,28 @@ const Modal = ({ setOpen }: Istate) => {
 
   return (
     <StBg>
-      <StModal>
-        <StTextBox onSubmit={handleSubmit(onSubmit)}>
+      <StModal onSubmit={handleSubmit(onPostDiary)}>
+        <StTextBox>
           {imagePreview && <img alt="preview" src={imagePreview} />}
-          <StInput placeholder="내용을 입력해주세요. (80자이내)" />
+          <StInput
+            {...register("content")}
+            maxLength={80}
+            placeholder="내용을 입력해주세요. (80자이내)"
+          />
         </StTextBox>
         <input type="file" accept="image/*" {...register("dirImg")} />
         <StBtnBox>
           <button>작성하기</button>
-          <button onClick={() => setOpen((x: boolean) => !x)}>돌아가기</button>
+          <button type="button" onClick={() => setOpen(false)}>
+            돌아가기
+          </button>
         </StBtnBox>
       </StModal>
     </StBg>
   );
 };
 
-export default Modal;
+export default DiaryModal;
 
 const StModal = styled.form`
   width: 30rem;

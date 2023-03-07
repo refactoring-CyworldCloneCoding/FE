@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Player = () => {
+  // const bgms = [];
   return (
     <Stplayer>
       {/* <iframe

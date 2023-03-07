@@ -38,7 +38,7 @@ const GuestComment = ({ book }: IBook) => {
     },
   });
 
-  const rewriteBook = (guestbookId: number) => {
+  const onEditBook = (guestbookId: number) => {
     if (text.trim() === "") {
       alert("공백이 아닌 내용을 입력해주세요.");
     } else {
@@ -56,19 +56,23 @@ const GuestComment = ({ book }: IBook) => {
           ({book?.updatedAt})
         </p>
         {IsMyHome(book.myhomeId) || IsMyHome(book.userId) ? (
-          <div>
+          <>
             {isEdit ? (
-              <button onClick={() => rewriteBook(book.guestbookId)}>
-                완료
-              </button>
+              <div>
+                <button onClick={() => onEditBook(book.guestbookId)}>
+                  완료
+                </button>
+                <button onClick={() => setIsEdit(false)}>취소</button>
+              </div>
             ) : (
-              <button onClick={() => setIsEdit(true)}>수정</button>
+              <div>
+                <button onClick={() => setIsEdit(true)}>수정</button>
+                <button onClick={() => deleteBook.mutate(book.guestbookId)}>
+                  삭제
+                </button>
+              </div>
             )}
-
-            <button onClick={() => deleteBook.mutate(book.guestbookId)}>
-              삭제
-            </button>
-          </div>
+          </>
         ) : null}
       </StTitle>
       <StBookDiv>

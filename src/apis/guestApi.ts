@@ -26,7 +26,6 @@ interface IBookEdit {
 }
 /** 방명록 수정 */
 export const EditBook = async (payload: IBookEdit) => {
-  console.log(payload);
   await instance.put(`/guestbooks/${payload.guestbookId}`, {
     guestbook: payload.text,
   });

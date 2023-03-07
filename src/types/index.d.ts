@@ -14,6 +14,7 @@ interface IRandom {
 
 interface Istate {
   setOpen: Dispatch<SetStateAction<boolean>>;
+  homeId?: string | undefined;
 }
 
 interface ILogin {
