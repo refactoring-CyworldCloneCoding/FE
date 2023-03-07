@@ -7,7 +7,7 @@ import { EditIntro } from "../../apis/userApi";
 import { FlexCenter } from "../../styles/css";
 import { getgenderCon } from "../../utils/getItem";
 import { getRamdomMinihome } from "../../utils/getMinihome";
-import { IsMyHome } from "../../utils/isToken";
+import { IsMy } from "../../utils/isToken";
 
 const Profile = ({ userInfo }: IInfo) => {
   const queryClient = useQueryClient();
@@ -59,7 +59,7 @@ const Profile = ({ userInfo }: IInfo) => {
         <StFlex>
           <StHistory>히스토리</StHistory>
           <StBtnBox>
-            {IsMyHome({ homeId: userData?.userId }) && (
+            {IsMy({ homeId: userData?.userId }) && (
               <>
                 {editIntro ? (
                   <>

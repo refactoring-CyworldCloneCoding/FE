@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { DeleteDiary, EditDiary } from "../../../apis/diaryApi";
 import { FlexCenter } from "../../../styles/css";
 import { IDiaryData } from "../../../types/diary";
+import { IsMy } from "../../../utils/isToken";
 import DiaryComment from "./DiaryComment";
 import DiaryCommentInput from "./DiaryCommentInput";
 
@@ -67,21 +68,28 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
           <span>No.{diaryData?.diaryNo}</span>
           <span>{diaryData?.updatedAt}</span>
         </StTitle>
+
         <form onSubmit={handleSubmit(onEditDiary)}>
-          {isEdit ? (
-            <StBtnBox>
-              <button>완료</button>
-              <span onClick={() => setIsEdit(false)}>취소</span>
-            </StBtnBox>
-          ) : (
-            <StBtnBox>
-              <span onClick={() => setIsEdit(true)}>수정</span>
-              <span
-                onClick={() => deleteDiary.mutate({ id: diaryData?.diaryId })}
-              >
-                삭제
-              </span>
-            </StBtnBox>
+          {IsMy({ homeId: diaryData?.userId }) && (
+            <>
+              {isEdit ? (
+                <StBtnBox>
+                  <button>완료</button>
+                  <span onClick={() => setIsEdit(false)}>취소</span>
+                </StBtnBox>
+              ) : (
+                <StBtnBox>
+                  <span onClick={() => setIsEdit(true)}>수정</span>
+                  <span
+                    onClick={() =>
+                      deleteDiary.mutate({ id: diaryData?.diaryId })
+                    }
+                  >
+                    삭제
+                  </span>
+                </StBtnBox>
+              )}
+            </>
           )}
           <StFlexBox>
             {imagePreview && <Stimg src={imagePreview} alt="다이어리사진" />}

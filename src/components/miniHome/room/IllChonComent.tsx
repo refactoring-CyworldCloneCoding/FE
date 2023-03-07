@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { DeleteBests, EditBests } from "../../../apis/illChonApi";
 import { IBest } from "../../../types/illchon";
-import { IsMyHome } from "../../../utils/isToken";
+import { IsMy, IsOur } from "../../../utils/isToken";
 
 const IllChonComent = ({ best }: IBest) => {
   const queryClient = useQueryClient();
@@ -67,7 +67,7 @@ const IllChonComent = ({ best }: IBest) => {
           <StName>{best?.name}</StName>)
         </p>
       )}
-      {IsMyHome({ homeId: best?.myhomeId, anyId: best?.userId }) && (
+      {IsOur({ homeId: best?.myhomeId, anyId: best?.userId }) && (
         <>
           {isEdit ? (
             <div>
@@ -76,7 +76,9 @@ const IllChonComent = ({ best }: IBest) => {
             </div>
           ) : (
             <div>
-              <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
+              {IsMy({ homeId: best?.userId }) && (
+                <StBtn onClick={() => setIsEdit(true)}>수정</StBtn>
+              )}
               <StBtn
                 onClick={() =>
                   deleteBest.mutate({
