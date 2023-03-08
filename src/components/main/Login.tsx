@@ -1,13 +1,13 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { instance } from "../../apis/axios";
 import styled from "styled-components";
 import { setAccessToken, setRefreshToken } from "../../apis/cookies";
+import axios from "axios";
 
 const Login = ({ setIsLogin }: ILogin) => {
   const { register, handleSubmit } = useForm();
 
   const onLogin = async (data: FieldValues) => {
-    await instance
+    await axios
       .post("/users/login", data)
       .then((res) => {
         if (res.status === 200) {
