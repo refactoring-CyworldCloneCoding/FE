@@ -11,7 +11,9 @@ const Join = () => {
 
   useEffect(() => {
     setIsLogin(isToken());
-    nav("/");
+    if (isLogin) {
+      nav("/");
+    }
   }, [isLogin, nav]);
 
   return (
