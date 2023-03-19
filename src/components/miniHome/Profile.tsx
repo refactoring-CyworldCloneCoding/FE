@@ -11,7 +11,7 @@ import { IsMy } from "../../utils/isToken";
 
 const Profile = ({ userInfo }: IInfo) => {
   const queryClient = useQueryClient();
-  const userData = userInfo?.User;
+  const userData = userInfo?.user;
   const { homeId } = useParams();
   const [editIntro, setEditIntro] = useState(false);
   const { register, handleSubmit } = useForm();

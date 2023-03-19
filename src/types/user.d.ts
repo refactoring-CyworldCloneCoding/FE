@@ -21,7 +21,7 @@ interface IUSerData {
 /**프로필 정보 */
 interface IInfo {
   userInfo: {
-    User: TUser;
+    user: TUser;
     createdAt: number;
     intro: string;
     myhomeId: number;
