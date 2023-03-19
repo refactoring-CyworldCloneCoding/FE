@@ -4,7 +4,7 @@ export interface IDiaryId {
 }
 
 export type TDiaryData = {
-  Comments: [];
+  comments: [];
   content: string;
   createdAt: string;
   diaryId: number;

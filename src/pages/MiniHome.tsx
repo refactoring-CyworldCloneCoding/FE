@@ -12,7 +12,7 @@ const MiniHome = () => {
 
   const { data } = GetHomeInfo(homeId);
   const userInfo = data?.data;
-  const userData = userInfo?.User;
+  const userData = userInfo?.user;
 
   return (
     <Layout>

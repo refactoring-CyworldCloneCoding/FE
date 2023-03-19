@@ -16,7 +16,7 @@ const LoginUser = ({ setIsLogin }: ILogin) => {
   };
 
   const { data } = GetHomeInfo(myHomeId);
-  const userInfo = data?.data.User;
+  const userInfo = data?.data.user;
 
   return (
     <StUserBox>
