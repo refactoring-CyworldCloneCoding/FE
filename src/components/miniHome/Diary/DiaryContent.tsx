@@ -11,7 +11,7 @@ import DiaryCommentInput from "./DiaryCommentInput";
 
 const DiaryContent = ({ diaryData }: IDiaryData) => {
   const queryClient = useQueryClient();
-  const commentsData = diaryData?.Comments;
+  const commentsData = diaryData?.comments;
   const [isEdit, setIsEdit] = useState(false);
   const { register, handleSubmit, watch } = useForm();
 

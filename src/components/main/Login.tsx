@@ -1,6 +1,6 @@
 import { FieldValues, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { setAccessToken, setRefreshToken } from "../../apis/cookies";
+import { setAccessToken } from "../../apis/cookies";
 import axios from "axios";
 
 const Login = ({ setIsLogin }: ILogin) => {
@@ -11,17 +11,19 @@ const Login = ({ setIsLogin }: ILogin) => {
       .post("/users/login", data)
       .then((res) => {
         if (res.status === 200) {
-          setAccessToken(res.data.accesstoken);
-          setRefreshToken(res.data.refreshtoken);
+          console.log(res);
+          setAccessToken(res.data.authorization);
           sessionStorage.setItem("userId", res.data.myhomeId);
           setIsLogin(true);
           alert("로그인 하였습니다.");
         }
       })
       .catch((res) => {
-        if (res.response.status === 400) {
+        console.log(res);
+        if (res.response.data.status === "error")
           alert("아이디 또는 비밀번호를 다시 확인해주세요.");
-        }
+        if (res.response.data.status === "fail")
+          alert("가입하신 회원이 아닙니다.");
       });
   };
   return (
