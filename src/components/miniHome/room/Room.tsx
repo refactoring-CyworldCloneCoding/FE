@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { GetBests } from "../../../apis/illChonApi";
-import { FlexCenter } from "../../../styles/css";
+import { FlexCenter, primaryColor } from "../../../styles/css";
 import { TBest } from "../../../types/illchon";
 import { getAvt, getMiniroom, Tgender } from "../../../utils/getItem";
 import IllChonComent from "./IllChonComent";
@@ -41,12 +41,13 @@ const StRoomBox = styled.div`
 const StTitle = styled.div`
   width: 100%;
   font-weight: 700;
-  color: #1ea7cc;
+  ${primaryColor}
   margin: 0.5rem 0;
 `;
 
 const StRoom = styled.img`
   width: 100%;
+  height: 100%;
 `;
 
 const StAvt = styled.img`

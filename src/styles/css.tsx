@@ -14,3 +14,7 @@ export const MainBg = css`
   flex-direction: column;
   background-color: #eee;
 `;
+
+export const primaryColor = css`
+  color: #1ea7cc;
+`;

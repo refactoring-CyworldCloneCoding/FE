@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { EditIntro } from "../../apis/userApi";
-import { FlexCenter } from "../../styles/css";
+import { FlexCenter, primaryColor } from "../../styles/css";
 import { getgenderCon } from "../../utils/getItem";
 import { getRamdomMinihome } from "../../utils/getMinihome";
 import { IsMy } from "../../utils/isToken";
@@ -41,7 +41,10 @@ const Profile = ({ userInfo }: IInfo) => {
         <StEmotion>
           TODAY is ... <span>행복🥰</span>
         </StEmotion>
-        <StProfileImage src="http://res.heraldm.com/content/image/2021/07/16/20210716000671_0.jpg" />
+        <StProfileImage
+          alt="프로필사진"
+          src="http://res.heraldm.com/content/image/2021/07/16/20210716000671_0.jpg"
+        />
         <StIntro>
           {editIntro ? (
             <form id="introText" onSubmit={handleSubmit(onEidtIntro)}>
@@ -97,6 +100,7 @@ const StPageBox = styled.div`
 //프로필 박스
 const StProf = styled.div`
   width: 14rem;
+  height: 100%;
   margin: 0.5rem 0;
   background-color: white;
   border-radius: 0.5rem;
@@ -113,7 +117,7 @@ const StEmotion = styled.div`
   padding: 0.4rem;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #1ea7cc;
+  ${primaryColor}
   border: 0.1rem solid #cdd5d8;
   span {
     color: black;
@@ -133,11 +137,12 @@ const StToday = styled.div`
 
 const StProfileImage = styled.img`
   width: 80%;
+  height: 80%;
 `;
 
 const StIntro = styled.div`
   width: 10rem;
-  height: 4.8rem;
+  height: 100%;
 
   margin-top: 2rem;
   margin-bottom: 5.9rem;
@@ -162,7 +167,7 @@ const StHistory = styled.div`
   padding: 0.4rem;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #1ea7cc;
+  ${primaryColor}
 `;
 
 const StBtnBox = styled.div`
@@ -204,6 +209,7 @@ const StUserinfo = styled.div`
   font-size: 0.8rem;
   font-weight: 700;
   span {
+    margin-left: 0.5rem;
     color: gray;
     font-weight: 500;
   }
