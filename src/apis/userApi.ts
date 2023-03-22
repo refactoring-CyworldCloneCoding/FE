@@ -19,3 +19,8 @@ export const GetHomeInfo = (myHomeId: THome) => {
 export const EditIntro = async (payload: IPayload) => {
   await instance.put(`/users/${payload.homeId}`, payload.data);
 };
+
+/** 일촌 조회하기 */
+/** 일촌 맺기*/
+/** 일촌명 변경하기 */
+/** 일촌 끊기 */

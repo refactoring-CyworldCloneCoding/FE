@@ -3,6 +3,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { DeleteBests, EditBests } from "../../../apis/illChonApi";
+import { primaryColor } from "../../../styles/css";
 import { IBest } from "../../../types/illchon";
 import { IsMy, IsOur } from "../../../utils/isToken";
 
@@ -107,7 +108,7 @@ const StBtn = styled.span`
 
 const StName = styled.span`
   font-weight: 600;
-  color: #1ea7cc;
+  ${primaryColor}
 `;
 
 const StNick = styled.span`

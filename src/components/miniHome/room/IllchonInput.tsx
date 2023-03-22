@@ -3,7 +3,7 @@ import { useQueryClient, useMutation } from "react-query";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { PostBests } from "../../../apis/illChonApi";
-import { FlexCenter } from "../../../styles/css";
+import { FlexCenter, primaryColor } from "../../../styles/css";
 
 const IllchonInput = () => {
   const queryClient = useQueryClient();
@@ -65,7 +65,7 @@ const StIllchon = styled.form`
   }
   p {
     font-weight: 700;
-    color: #1ea7cc;
+    ${primaryColor}
   }
   button {
     margin-left: 0.5rem;
