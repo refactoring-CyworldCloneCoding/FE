@@ -39,6 +39,7 @@ const StMain = styled.div`
 
 const StLogo = styled.img`
   width: 18rem;
+  height: 18rem;
 `;
 
 const StBox = styled.div`
