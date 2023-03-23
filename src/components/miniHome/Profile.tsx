@@ -43,7 +43,7 @@ const Profile = ({ userInfo }: IInfo) => {
         </StEmotion>
         <StProfileImage
           alt="프로필사진"
-          src="http://res.heraldm.com/content/image/2021/07/16/20210716000671_0.jpg"
+          src="https://newsimg.hankookilbo.com/cms/articlerelease/2020/06/05/202006051888034625_5.jpg"
         />
         <StIntro>
           {editIntro ? (
