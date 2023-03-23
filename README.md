@@ -7,7 +7,7 @@
 >로그인 없이도 미니홈피를 구경할 수 있습니다. 랜덤 미니홈피 버튼을 눌러보세요!<br/>
 >다른 추가 기능들은 준비중입니다.<br/>
 ><br/>
->**[🏠: 싸이월드 링크]( http://mycyworld.s3-website.ap-northeast-2.amazonaws.com/)**<br/>
+>**[🏠: 싸이월드 링크]( https://gomgom-ssgg.shop/)**<br/>
 
 <br/>
 
