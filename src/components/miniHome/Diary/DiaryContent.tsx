@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { DeleteDiary, EditDiary } from "../../../apis/diaryApi";
 import { FlexCenter } from "../../../styles/css";
-import { IDiaryData } from "../../../types/diary";
+import { IDiaryData, TComment } from "../../../types/diary";
 import { IsMy } from "../../../utils/isToken";
 import DiaryComment from "./DiaryComment";
 import DiaryCommentInput from "./DiaryCommentInput";
@@ -25,8 +25,8 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
       queryClient.invalidateQueries("getDiary");
       alert("다이어리가 수정되었습니다.");
     },
-    onError: (err: any) => {
-      alert(err.response?.data.msg);
+    onError: (err) => {
+      alert("다시 시도해주세요.");
     },
   });
 
@@ -49,8 +49,8 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
       queryClient.invalidateQueries("getDiary");
       alert("다이어리가 삭제되었습니다.");
     },
-    onError: (err: any) => {
-      alert(err.response?.data.msg);
+    onError: (err) => {
+      alert("다시 시도해주세요.");
     },
   });
 
@@ -117,8 +117,8 @@ const DiaryContent = ({ diaryData }: IDiaryData) => {
       </StDiary>
       <StCommentFlex>
         <DiaryCommentInput diaryData={diaryData} />
-        {commentsData?.map((commentData) => (
-          <DiaryComment commentData={commentData} />
+        {commentsData?.map((commentData: TComment) => (
+          <DiaryComment key={commentData.commentId} commentData={commentData} />
         ))}
       </StCommentFlex>
     </>

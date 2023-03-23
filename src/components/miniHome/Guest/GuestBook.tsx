@@ -14,7 +14,7 @@ const GuestBook = () => {
     <StGuestBox>
       <GuestInput />
       {books?.map((book: TBook) => (
-        <GuestComment book={book} />
+        <GuestComment key={book.guestbookId} book={book} />
       ))}
     </StGuestBox>
   );

@@ -24,6 +24,7 @@ interface IInfo {
     user: TUser;
     createdAt: number;
     intro: string;
+    profile: string;
     myhomeId: number;
     today: number;
     total: number;

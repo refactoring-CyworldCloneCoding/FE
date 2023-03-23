@@ -7,7 +7,7 @@ import { getBookMinimi } from "../../../utils/getItem";
 
 const GuestInput = () => {
   const queryClient = useQueryClient();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const { homeId } = useParams();
 
@@ -30,12 +30,13 @@ const GuestInput = () => {
     } else {
       postBook.mutate({ data, homeId });
     }
+    reset();
   };
 
   return (
     <StBookDiv onSubmit={handleSubmit(writeBook)}>
       <StFlex>
-        <StMinimi src={getBookMinimi()} alt="미니미" />
+        <StMinimi src={getBookMinimi(randomNum)} alt="미니미" />
         <StText
           placeholder="방명록을 작성해보세요."
           maxLength={150}
