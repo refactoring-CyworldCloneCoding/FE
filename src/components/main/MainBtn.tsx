@@ -9,6 +9,7 @@ const MainBtn = () => {
     <>
       <StBtn onClick={() => nav("/join")}>회원가입</StBtn>
       <StBtn onClick={getRamdomMinihome}>랜덤 미니홈피 구경하기</StBtn>
+      <StBtn onClick={() => nav("/minihome/3")}>테스트</StBtn>
     </>
   );
 };
