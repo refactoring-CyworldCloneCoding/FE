@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
@@ -14,10 +14,18 @@ const Profile = ({ userInfo }: IInfo) => {
   const userData = userInfo?.user;
   const { homeId } = useParams();
   const [editIntro, setEditIntro] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
+
+  const [imagePreview, setImagePreview] = useState("");
+
+  const image = watch("profile");
 
   const onEidtIntro = (data: FieldValues) => {
-    putIntro.mutate({ data, homeId });
+    const profile = data.profile[0];
+    const formData = new FormData();
+    formData.append("profile", profile);
+    formData.append("intro", data.intro);
+    putIntro.mutate({ data: formData, homeId: homeId });
     setEditIntro(false);
   };
 
@@ -32,6 +40,13 @@ const Profile = ({ userInfo }: IInfo) => {
     },
   });
 
+  useEffect(() => {
+    if (image && image.length > 0) {
+      const file = image[0];
+      setImagePreview(URL.createObjectURL(file));
+    }
+  }, [image]);
+
   return (
     <StPageBox>
       <StToday>
@@ -41,24 +56,35 @@ const Profile = ({ userInfo }: IInfo) => {
         <StEmotion>
           TODAY is ... <span>행복🥰</span>
         </StEmotion>
-        <StProfileImage
-          alt="프로필사진"
-          src="https://newsimg.hankookilbo.com/cms/articlerelease/2020/06/05/202006051888034625_5.jpg"
-        />
-        <StIntro>
-          {editIntro ? (
-            <form id="introText" onSubmit={handleSubmit(onEidtIntro)}>
-              <textarea
-                {...register("intro")}
-                maxLength={45}
-                placeholder="45자이내로 작성하기."
-                defaultValue={userInfo?.intro}
-              />
-            </form>
+        <>
+          {imagePreview ? (
+            <StProfileImage alt="프로필사진" src={imagePreview} />
           ) : (
-            userInfo?.intro
+            <StProfileImage alt="프로필사진" src={userInfo?.profile} />
           )}
-        </StIntro>
+
+          <StIntro>
+            {editIntro ? (
+              <form id="introText" onSubmit={handleSubmit(onEidtIntro)}>
+                <input
+                  {...register("profile")}
+                  id="profImg"
+                  type="file"
+                  accept="image/*"
+                />
+                <label htmlFor="profImg">프로필 사진 변경</label>
+                <textarea
+                  {...register("intro")}
+                  maxLength={45}
+                  placeholder="45자이내로 작성하기."
+                  defaultValue={userInfo?.intro}
+                />
+              </form>
+            ) : (
+              userInfo?.intro
+            )}
+          </StIntro>
+        </>
         <StFlex>
           <StHistory>히스토리</StHistory>
           <StBtnBox>
@@ -137,7 +163,8 @@ const StToday = styled.div`
 
 const StProfileImage = styled.img`
   width: 80%;
-  height: 80%;
+  max-width: 8rem;
+  max-height: 80%;
 `;
 
 const StIntro = styled.div`
@@ -145,7 +172,7 @@ const StIntro = styled.div`
   height: 100%;
 
   margin-top: 2rem;
-  margin-bottom: 5.9rem;
+
   padding: 0.2rem;
   word-break: break-all;
   font-size: 0.8rem;
@@ -160,6 +187,20 @@ const StIntro = styled.div`
     width: 100%;
     height: 100%;
     font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    padding: 0.2rem;
+    border: 0.1rem solid black;
+    border-radius: 0.3rem;
+    background-color: #f6f6f6;
+    cursor: pointer;
+    font-size: 0.6rem;
   }
 `;
 

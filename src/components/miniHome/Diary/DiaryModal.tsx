@@ -14,7 +14,7 @@ const DiaryModal = ({ setOpen, homeId }: Istate) => {
       queryClient.invalidateQueries("getDiary");
     },
     onError: (err: any) => {
-      alert(err.response?.data.msg);
+      alert("다시 시도해주새요.");
     },
   });
 
