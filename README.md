@@ -31,4 +31,4 @@
 <img src="https://user-images.githubusercontent.com/112849712/223967195-bd1d34f6-b383-45b2-acba-b5880b3c6fbf.png" width="100%" />
 
 # 🐔 API 명세서
->**[📡: 노션링크]( https://www.notion.so/ad41b309c60b4596a9c644482c464af6)**<br/>
+>**[📡: API 명세서 바로가기 ](https://jangs-organization.gitbook.io/api/)**<br/>
